@@ -12,6 +12,7 @@ All notable changes are documented here.
 ### Changed
 
 - Fresh verification now observes the DSH tool execution cancellation signal.
+- Release checks are explicit so GitHub installation does not require pnpm `allowBuilds` approval.
 
 ## [0.1.0] - 2026-08-14
 
