@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#071511">
+    <meta name="description" content="Find DeepSeek Harness plugins, verify what they implement, identify missing DSH capabilities, and generate build-ready briefs.">
+    <meta property="og:title" content="DSH Landscape — Know what exists. Find what's missing.">
+    <meta property="og:description" content="Evidence-first ecosystem intelligence for DeepSeek Harness plugins and missing capabilities.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cyanseek.github.io/dsh-landscape/">
+    <title>DSH Landscape — DeepSeek Harness ecosystem intelligence</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="DSH Landscape home">
+        <span class="brand-mark" aria-hidden="true">D/L</span>
+        <span>DSH Landscape</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#how">How it works</a>
+        <a href="https://github.com/cyanseek/dsh-landscape">GitHub</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">NEED-FIRST ECOSYSTEM INTELLIGENCE</p>
+        <h1 id="hero-title">Know what exists.<br><em>Find what's missing.</em></h1>
+        <p class="hero-copy">Describe what you wish DeepSeek Harness could do. Landscape finds nearby projects, separates implementations from placeholders, and shows what still needs evidence.</p>
+
+        <form id="analysis-form" class="analysis-form">
+          <label for="need">What do you wish DeepSeek Harness could do?</label>
+          <div class="input-row">
+            <input id="need" name="need" type="search" autocomplete="off" required placeholder="Integrate with Linear and manage issues natively">
+            <button type="submit">Analyze <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="examples" aria-label="Example needs">
+            <span>Try</span>
+            <button type="button" data-example="Browser automation">browser automation</button>
+            <button type="button" data-example="Native GitHub issue and PR operations">GitHub operations</button>
+            <button type="button" data-example="Linear integration">Linear integration</button>
+          </div>
+        </form>
+
+        <div class="snapshot-bar" aria-live="polite">
+          <span><strong id="plugin-count">—</strong> projects indexed</span>
+          <span><strong id="source-count">—</strong> independent sources</span>
+          <span>Snapshot <strong id="freshness">loading</strong></span>
+        </div>
+      </section>
+
+      <section id="result" class="result-wrap" hidden aria-live="polite" aria-labelledby="result-title">
+        <article class="result-card">
+          <div class="result-head">
+            <div>
+              <p class="eyebrow">PROVISIONAL RETRIEVAL RESULT</p>
+              <h2 id="result-title">Result</h2>
+            </div>
+            <span id="verdict" class="verdict">UNKNOWN</span>
+          </div>
+          <p id="result-note" class="result-note"></p>
+          <div class="result-grid">
+            <section>
+              <h3>Nearest evidence</h3>
+              <ol id="matches" class="match-list"></ol>
+            </section>
+            <section>
+              <h3>Still missing</h3>
+              <ul id="missing" class="plain-list"></ul>
+              <h3>Recommendation</h3>
+              <p id="recommendation" class="recommendation"></p>
+              <p id="confidence" class="confidence"></p>
+            </section>
+          </div>
+          <div class="command-panel">
+            <div>
+              <span>Use with an Agent for semantic review</span>
+              <code id="agent-command"></code>
+            </div>
+            <button id="copy-command" type="button">Copy</button>
+          </div>
+          <details>
+            <summary>Generate a build brief</summary>
+            <code id="brief-command" class="block-code"></code>
+          </details>
+        </article>
+      </section>
+
+      <section class="secondary-grid">
+        <article>
+          <p class="eyebrow">SNAPSHOT-DERIVED LEADS</p>
+          <h2>Areas worth verifying</h2>
+          <p class="section-copy">These are starting points from the current snapshot, not claims about universal gaps.</p>
+          <div id="opportunities" class="opportunity-list"></div>
+        </article>
+        <article>
+          <p class="eyebrow">RECENTLY OBSERVED</p>
+          <h2>Fast-moving ecosystem</h2>
+          <p class="section-copy">DSH is in developer preview. Evidence and maturity can change quickly.</p>
+          <div id="recent" class="recent-list"></div>
+        </article>
+      </section>
+
+      <section id="how" class="how">
+        <div>
+          <p class="eyebrow">HOW IT WORKS</p>
+          <h2>A need, not a directory.</h2>
+        </div>
+        <ol>
+          <li><span>01</span><strong>Retrieve</strong><p>Search names, descriptions, topics, catalog evidence, and bilingual capability aliases.</p></li>
+          <li><span>02</span><strong>Verify</strong><p>Separate placeholders, prototypes, installable projects, and tested implementations.</p></li>
+          <li><span>03</span><strong>Decide</strong><p>Use host-Agent reasoning to choose USE, EXTEND, BUILD, AVOID DUPLICATION, or INVESTIGATE.</p></li>
+        </ol>
+      </section>
+    </main>
+
+    <footer>
+      <p>DSH Landscape is independent open-source ecosystem infrastructure.</p>
+      <p><a href="https://github.com/cyanseek/dsh-landscape">Source & data provenance</a> · MIT</p>
+    </footer>
+  </body>
+</html>

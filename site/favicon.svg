@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="DSH Landscape">
+  <rect width="64" height="64" rx="14" fill="#a8ff78"/>
+  <path d="M16 20h9c9 0 14 4 14 12s-5 12-14 12h-9V20Zm8 7v10h2c3 0 5-2 5-5s-2-5-5-5h-2Zm22-9h5L38 46h-5l13-28Z" fill="#071511"/>
+</svg>

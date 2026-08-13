@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "sources": [
+    {
+      "id": "github-topic",
+      "url": "https://github.com/topics/dsh-plugin",
+      "kind": "github-search",
+      "query": "topic:dsh-plugin"
+    },
+    {
+      "id": "awesome-catalog",
+      "url": "https://github.com/0xsline/awesome-deepseek-harness/blob/main/CATALOG.md",
+      "kind": "markdown-catalog"
+    }
+  ],
+  "manualPlugins": []
+}

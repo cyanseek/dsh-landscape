@@ -1,0 +1,45 @@
+name: Plugin evidence correction
+description: Correct a repository, maturity, capability, or coverage claim.
+title: "[Correction]: "
+labels: ["evidence-correction"]
+body:
+  - type: input
+    id: repository
+    attributes:
+      label: Repository URL
+      placeholder: https://github.com/owner/repo
+    validations:
+      required: true
+  - type: dropdown
+    id: field
+    attributes:
+      label: What is wrong?
+      options:
+        - Maturity
+        - Capability tags
+        - Covered / gap verdict
+        - Archived or fork status
+        - Install path
+        - Other evidence
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Correct value or interpretation
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Public evidence URLs
+      description: Factual corrections require links that directly support the change.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Public data
+      options:
+        - label: I have not included tokens, private repository data, cookies, or other secrets.
+          required: true

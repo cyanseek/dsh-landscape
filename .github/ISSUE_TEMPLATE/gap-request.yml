@@ -1,0 +1,37 @@
+name: Capability need or suspected gap
+description: Describe what you want DeepSeek Harness to do; no taxonomy knowledge required.
+title: "[Need]: "
+labels: ["capability-need"]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What should DeepSeek Harness be able to do?
+      description: Write the need in your own words.
+      placeholder: I want DSH to…
+    validations:
+      required: true
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Example workflow
+      description: What would success look like from the user's point of view?
+    validations:
+      required: true
+  - type: textarea
+    id: existing
+    attributes:
+      label: Why existing projects do not satisfy it (if known)
+      description: Optional. It is fine if you have not searched yet.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Optional evidence links
+      description: Link related repositories, discussions, or documentation.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Public data
+      options:
+        - label: I have not included tokens, private repository data, cookies, or other secrets.
+          required: true

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "capabilities": [
+    { "id": "browser", "label": "Browser and web automation", "labelZh": "浏览器与网页自动化", "aliases": ["browser", "web", "playwright", "chrome", "浏览器", "网页", "网络自动化"] },
+    { "id": "github", "label": "GitHub operations", "labelZh": "GitHub 操作", "aliases": ["github", "git", "issue", "issues", "pull request", "pull requests", "pr", "actions", "代码托管", "议题", "合并请求"] },
+    { "id": "memory", "label": "Memory", "labelZh": "记忆", "aliases": ["memory", "long-term memory", "persistent memory", "记忆", "长期记忆", "持久记忆"] },
+    { "id": "notion", "label": "Notion integration", "labelZh": "Notion 集成", "aliases": ["notion"] },
+    { "id": "linear", "label": "Linear integration", "labelZh": "Linear 集成", "aliases": ["linear", "linear issue", "linear project"] },
+    { "id": "jira", "label": "Jira integration", "labelZh": "Jira 集成", "aliases": ["jira", "atlassian"] },
+    { "id": "container", "label": "Containers", "labelZh": "容器", "aliases": ["docker", "container", "containers", "容器", "镜像"] },
+    { "id": "kubernetes", "label": "Kubernetes", "labelZh": "Kubernetes", "aliases": ["kubernetes", "k8s", "kubectl", "集群"] },
+    { "id": "database", "label": "Database and SQL", "labelZh": "数据库与 SQL", "aliases": ["database", "sql", "postgres", "mysql", "sqlite", "数据库", "查询"] },
+    { "id": "documents", "label": "PDF and office documents", "labelZh": "PDF 与办公文档", "aliases": ["pdf", "office", "document", "docx", "xlsx", "spreadsheet", "文档", "表格", "办公"] },
+    { "id": "notifications", "label": "Notifications and channels", "labelZh": "通知与消息渠道", "aliases": ["notification", "notify", "telegram", "feishu", "slack", "wechat", "wecom", "通知", "飞书", "微信"] },
+    { "id": "vision", "label": "Vision and OCR", "labelZh": "视觉与 OCR", "aliases": ["vision", "image", "ocr", "screenshot", "视觉", "图像", "图片", "截图", "识图"] },
+    { "id": "audio", "label": "Voice and audio", "labelZh": "语音与音频", "aliases": ["voice", "audio", "speech", "tts", "stt", "语音", "音频"] },
+    { "id": "multi-agent", "label": "Subagents and multi-agent", "labelZh": "子 Agent 与多 Agent", "aliases": ["subagent", "sub-agent", "multi-agent", "multi agent", "agent team", "子agent", "子代理", "多agent", "多代理"] },
+    { "id": "workflow", "label": "Workflow automation", "labelZh": "工作流自动化", "aliases": ["workflow", "automation", "orchestration", "pipeline", "工作流", "自动化", "编排"] },
+    { "id": "ide", "label": "IDE integration", "labelZh": "IDE 集成", "aliases": ["ide", "vscode", "visual studio code", "editor", "编辑器"] },
+    { "id": "remote", "label": "Remote and SSH", "labelZh": "远程与 SSH", "aliases": ["remote", "ssh", "remote control", "远程", "远程控制"] },
+    { "id": "mcp", "label": "MCP and tool providers", "labelZh": "MCP 与工具提供方", "aliases": ["mcp", "model context protocol", "tool provider", "tool server", "工具提供", "工具服务"] },
+    { "id": "research", "label": "Research and retrieval", "labelZh": "研究与检索", "aliases": ["research", "search", "retrieval", "rag", "研究", "搜索", "检索"] },
+    { "id": "observability", "label": "Observability and diagnostics", "labelZh": "可观测性与诊断", "aliases": ["observability", "diagnostic", "doctor", "audit", "trace", "监控", "诊断", "审计"] }
+  ]
+}

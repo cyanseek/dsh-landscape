@@ -1,0 +1,4 @@
+interface:
+  display_name: "DSH Landscape"
+  short_description: "Verify DSH coverage and find missing capabilities"
+  default_prompt: "Use $dsh-landscape to determine what already exists for my DeepSeek Harness need and what I should do next."

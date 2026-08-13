@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-08-13T19:03:20.370Z",
+  "opportunities": [
+    {
+      "query": "Linear integration",
+      "verdict": "crowded",
+      "confidence": 0.9,
+      "missingCapabilities": [
+        "linear"
+      ],
+      "closestProjects": [
+        "openma-ai/open-managed-agents",
+        "fakechris/dsh-track",
+        "dsh-external/dsh-track"
+      ],
+      "label": "snapshot-derived lead; not a universal gap claim"
+    },
+    {
+      "query": "Jira integration",
+      "verdict": "crowded",
+      "confidence": 0.8,
+      "missingCapabilities": [
+        "jira"
+      ],
+      "closestProjects": [
+        "harcochen/dsh-vsc-integration",
+        "omdsh-dev/dsh-github-integration",
+        "dsh-external/dsh-github-integration"
+      ],
+      "label": "snapshot-derived lead; not a universal gap claim"
+    },
+    {
+      "query": "Kubernetes operations",
+      "verdict": "partial",
+      "confidence": 0.8,
+      "missingCapabilities": [
+        "kubernetes"
+      ],
+      "closestProjects": [
+        "cofy-x/axern",
+        "runzhliu/deepseek-harness-docker",
+        "degurechaff57/dsh-openapi"
+      ],
+      "label": "snapshot-derived lead; not a universal gap claim"
+    },
+    {
+      "query": "Notion integration",
+      "verdict": "crowded",
+      "confidence": 0.8,
+      "missingCapabilities": [
+        "notion"
+      ],
+      "closestProjects": [
+        "harcochen/dsh-vsc-integration",
+        "omdsh-dev/dsh-github-integration",
+        "dsh-external/dsh-github-integration"
+      ],
+      "label": "snapshot-derived lead; not a universal gap claim"
+    }
+  ]
+}

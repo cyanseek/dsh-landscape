@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npm run validate
+      - run: npm run build
+      - run: npm pack --dry-run
+      - name: Smoke test CLI contracts
+        env:
+          DSH_LANDSCAPE_OFFLINE: "1"
+        run: |
+          node src/cli.mjs find browser --json > /tmp/find.json
+          node -e "JSON.parse(require('fs').readFileSync('/tmp/find.json', 'utf8'))"
+          node src/cli.mjs analyze "GitHub integration" --json > /tmp/analyze.json
+          node -e "JSON.parse(require('fs').readFileSync('/tmp/analyze.json', 'utf8'))"
+          node src/cli.mjs brief "GitHub integration" --format agent

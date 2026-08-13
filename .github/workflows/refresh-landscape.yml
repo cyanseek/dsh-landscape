@@ -1,0 +1,41 @@
+name: Refresh landscape
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-landscape
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Scan public sources
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: npm run scan
+      - run: npm run validate
+      - run: npm run build
+      - name: Commit semantic data changes only
+        run: |
+          git add data/snapshot.json site/api/v1/snapshot.json site/api/v1/plugins.json site/api/v1/capabilities.json site/api/v1/gaps.json
+          if git diff --cached --quiet; then
+            echo "No semantic landscape changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(data): refresh ecosystem snapshot"
+          git push

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2099-01-01T00:00:00.000Z",
+  "project": "dsh-landscape-test",
+  "coverage": {
+    "complete": true,
+    "staleAfterHours": 24,
+    "sources": [
+      { "id": "github-topic", "url": "https://example.test/topic", "observedAt": "2099-01-01T00:00:00.000Z", "status": "ok", "complete": true, "itemCount": 2 },
+      { "id": "awesome-catalog", "url": "https://example.test/catalog", "observedAt": "2099-01-01T00:00:00.000Z", "status": "ok", "complete": true, "itemCount": 2 }
+    ]
+  },
+  "plugins": [
+    {
+      "id": "acme/browser-kit",
+      "repo": "acme/browser-kit",
+      "url": "https://example.test/acme/browser-kit",
+      "name": "browser-kit",
+      "description": "Tested Playwright browser automation tools for DSH",
+      "topics": ["browser", "dsh-plugin", "playwright"],
+      "sources": [{ "source": "github-topic", "url": "https://example.test/acme/browser-kit", "observedAt": "2099-01-01T00:00:00.000Z" }],
+      "capabilities": ["browser"],
+      "maturity": "tested",
+      "maturityEvidence": [{ "kind": "test-script", "detail": "Synthetic fixture has tests.", "url": "https://example.test/acme/browser-kit/tests" }],
+      "updatedAt": "2099-01-01T00:00:00.000Z",
+      "archived": false,
+      "fork": false,
+      "stars": 12,
+      "defaultBranch": "main",
+      "readmeSummary": "Install and use browser automation.",
+      "install": { "kind": "dsh-bundle", "command": "synthetic-install" }
+    },
+    {
+      "id": "acme/linear-placeholder",
+      "repo": "acme/linear-placeholder",
+      "url": "https://example.test/acme/linear-placeholder",
+      "name": "linear-placeholder",
+      "description": "Reserved Linear integration placeholder",
+      "topics": ["dsh-plugin", "linear"],
+      "sources": [{ "source": "awesome-catalog", "url": "https://example.test/catalog", "observedAt": "2099-01-01T00:00:00.000Z" }],
+      "capabilities": ["linear"],
+      "maturity": "placeholder",
+      "maturityEvidence": [{ "kind": "repository-size", "detail": "Synthetic empty repository.", "url": "https://example.test/acme/linear-placeholder" }],
+      "updatedAt": "2099-01-01T00:00:00.000Z",
+      "archived": false,
+      "fork": false,
+      "stars": 0,
+      "defaultBranch": "main",
+      "readmeSummary": "",
+      "install": { "kind": "unknown" }
+    },
+    {
+      "id": "acme/old-browser",
+      "repo": "acme/old-browser",
+      "url": "https://example.test/acme/old-browser",
+      "name": "old-browser",
+      "description": "Archived browser plugin",
+      "topics": ["browser"],
+      "sources": [{ "source": "github-topic", "url": "https://example.test/acme/old-browser", "observedAt": "2099-01-01T00:00:00.000Z" }],
+      "capabilities": ["browser"],
+      "maturity": "installable",
+      "maturityEvidence": [{ "kind": "package-manifest", "detail": "Synthetic install path.", "url": "https://example.test/acme/old-browser/package.json" }],
+      "updatedAt": "2098-01-01T00:00:00.000Z",
+      "archived": true,
+      "fork": false,
+      "stars": 99,
+      "defaultBranch": "main",
+      "readmeSummary": "",
+      "install": { "kind": "dsh-bundle", "command": "synthetic-install" }
+    }
+  ]
+}

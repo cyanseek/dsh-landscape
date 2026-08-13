@@ -1,0 +1,52 @@
+{
+  "name": "dsh-landscape",
+  "version": "0.1.0",
+  "description": "Find DeepSeek Harness plugins, verify what they implement, and identify missing capabilities.",
+  "type": "module",
+  "bin": {
+    "dsh-landscape": "./src/cli.mjs"
+  },
+  "exports": {
+    ".": "./src/index.mjs"
+  },
+  "files": [
+    "src",
+    "data",
+    "skills",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "check": "node scripts/check.mjs",
+    "scan": "node scripts/scan.mjs",
+    "test": "node --test",
+    "validate": "node scripts/validate-data.mjs && node scripts/validate-skill.mjs",
+    "prepack": "npm run build && npm run validate"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh-plugin",
+    "deepseek",
+    "dsh",
+    "agent-skills",
+    "plugin-discovery",
+    "ecosystem",
+    "gap-analysis",
+    "codex"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cyanseek/dsh-landscape.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cyanseek/dsh-landscape/issues"
+  },
+  "homepage": "https://cyanseek.github.io/dsh-landscape/",
+  "license": "MIT",
+  "author": "cyanseek"
+}
