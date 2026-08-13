@@ -57,8 +57,22 @@ async function main() {
   if (await exists(localCli)) {
     executable = process.execPath
     commandArgs = [localCli, ...args]
+  } else if (process.platform === 'win32') {
+    const candidates = [
+      process.env.npm_execpath
+        ? resolve(dirname(process.env.npm_execpath), 'npx-cli.js')
+        : null,
+      resolve(dirname(process.execPath), 'node_modules', 'npm', 'bin', 'npx-cli.js'),
+    ].filter(Boolean)
+    const npxCli = (await Promise.all(candidates.map(async (path) => await exists(path) ? path : null)))
+      .find(Boolean)
+    if (!npxCli) {
+      throw new Error('Could not locate npm npx-cli.js beside the current Windows Node installation')
+    }
+    executable = process.execPath
+    commandArgs = [npxCli, '-y', 'github:cyanseek/dsh-landscape', ...args]
   } else {
-    executable = process.platform === 'win32' ? 'npx.cmd' : 'npx'
+    executable = 'npx'
     commandArgs = ['-y', 'github:cyanseek/dsh-landscape', ...args]
   }
 
