@@ -1,18 +1,20 @@
 {
   "name": "dsh-landscape",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Find DeepSeek Harness plugins, verify what they implement, and identify missing capabilities.",
   "type": "module",
   "bin": {
     "dsh-landscape": "./src/cli.mjs"
   },
   "exports": {
-    ".": "./src/index.mjs"
+    ".": "./src/index.mjs",
+    "./plugin": "./src/plugin.mjs"
   },
   "files": [
     "src",
     "data",
     "skills",
+    "cordis.patch.yml",
     "README.md",
     "README.zh-CN.md",
     "LICENSE"
@@ -28,6 +30,7 @@
   "engines": {
     "node": ">=22"
   },
+  "packageManager": "pnpm@11.7.0",
   "keywords": [
     "deepseek-harness",
     "dsh-plugin",
@@ -47,6 +50,11 @@
     "url": "https://github.com/cyanseek/dsh-landscape/issues"
   },
   "homepage": "https://cyanseek.github.io/dsh-landscape/",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
   "license": "MIT",
   "author": "cyanseek"
 }

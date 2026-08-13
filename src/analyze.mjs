@@ -110,6 +110,7 @@ export async function analyzeNeed(query, options = {}) {
       aliasData: options.aliasData,
       capabilities: interpretCapabilities(query, options.aliasData),
       env: options.env,
+      signal: options.signal,
       timeoutMs: options.freshTimeoutMs,
     })
     workingSnapshot = mergeLiveSnapshot(workingSnapshot, verification)

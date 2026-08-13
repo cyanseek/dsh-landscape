@@ -2,6 +2,17 @@
 
 All notable changes are documented here.
 
+## [0.2.0] - 2026-08-14
+
+### Added
+
+- Installable DeepSeek Harness bundle with a native `dsh_landscape` evidence tool.
+- Runtime tests covering registration, execution, output schema, and bundle metadata.
+
+### Changed
+
+- Fresh verification now observes the DSH tool execution cancellation signal.
+
 ## [0.1.0] - 2026-08-14
 
 ### Added

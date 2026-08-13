@@ -15,6 +15,11 @@ function safeQueryTerm(value) {
   return String(value).replace(/[^\p{L}\p{N}_.+-]/gu, ' ').trim().slice(0, 80)
 }
 
+function requestSignal(signal, timeoutMs) {
+  const timeout = AbortSignal.timeout(timeoutMs)
+  return signal ? AbortSignal.any([signal, timeout]) : timeout
+}
+
 export async function verifyNeedFresh(query, options = {}) {
   const env = options.env ?? process.env
   const observedAt = new Date().toISOString()
@@ -37,7 +42,7 @@ export async function verifyNeedFresh(query, options = {}) {
     try {
       const response = await fetch(url, {
         headers: headers(env),
-        signal: AbortSignal.timeout(options.timeoutMs ?? 7000),
+        signal: requestSignal(options.signal, options.timeoutMs ?? 7000),
       })
       if (!response.ok) throw new Error(`GitHub search returned HTTP ${response.status}`)
       const payload = await response.json()
