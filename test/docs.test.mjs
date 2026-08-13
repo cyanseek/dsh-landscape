@@ -10,6 +10,9 @@ const [english, chinese, ignore, site] = await Promise.all([
   readFile(new URL('site/app.js', root), 'utf8'),
 ])
 const requiredCommands = [
+  'dsh plugin --profile web add github:cyanseek/dsh-landscape#1ef0e1ebbb5e84e8d2feed31ae71d1b97322f6f9',
+  'dsh --profile web --dump-config',
+  'dsh plugin --profile web remove dsh-landscape',
   'npx -y skills use cyanseek/dsh-landscape --skill dsh-landscape --agent codex',
   'npx -y skills add cyanseek/dsh-landscape --skill dsh-landscape -g -a codex -y',
   'npx -y github:cyanseek/dsh-landscape find "browser automation"',
@@ -26,7 +29,7 @@ test('English and Chinese READMEs share required tested commands', () => {
 test('English and Chinese READMEs keep all shell examples aligned', () => {
   const commands = (document) => document
     .split(/\r?\n/)
-    .filter((line) => /^(?:npx |export |mkdir |cp )/.test(line))
+    .filter((line) => /^(?:dsh |npx |export |npm )/.test(line))
   assert.deepEqual(commands(english), commands(chinese))
 })
 

@@ -1,43 +1,76 @@
 # DSH Landscape
 
-[简体中文](README.zh-CN.md) · [MIT](LICENSE) · [Roadmap](ROADMAP.md)
+[简体中文](README.zh-CN.md) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md)
 
-> **Know what exists. Find what's missing.**
+[![CI](https://github.com/cyanseek/dsh-landscape/actions/workflows/ci.yml/badge.svg)](https://github.com/cyanseek/dsh-landscape/actions/workflows/ci.yml)
+[![Node.js >= 22](https://img.shields.io/badge/Node.js-%3E%3D22-339933?logo=node.js&logoColor=white)](package.json)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-DSH Landscape is an Agent-first ecosystem intelligence layer for **DeepSeek Harness plugins and missing capabilities**. Give it a need in plain language; it finds related DSH projects, separates implementations from placeholders, exposes discovery freshness, and returns evidence for a USE / EXTEND / BUILD / AVOID DUPLICATION / INVESTIGATE decision.
+> **Know what exists before you build what is missing.**
 
-It is not another plugin list or installer. The first-class object is your **need**, not a repository.
+DSH Landscape answers one practical question: given a capability need, what already exists in the DeepSeek Harness ecosystem, what is still missing, and should you use, extend, investigate, or build?
 
-## Ask from Codex, DSH, or another Agent
+It combines plugin discovery, evidence-based maturity, coverage-aware verdicts, and fresh verification. A repository name or README claim alone never counts as proof that a capability is solved.
 
-### Use once — no permanent installation
+## What you get
+
+- A native DSH tool: `dsh_landscape`.
+- Need-first `analyze`, `find`, and `brief` CLI workflows.
+- A portable Agent Skill for Codex, DSH, and other compatible hosts.
+- Structured evidence with provenance, maturity, freshness, uncertainty, and next-action guidance.
+
+## Quick start: install as a DSH plugin
+
+Install the verified, reproducible revision into your DSH profile:
+
+```bash
+dsh plugin --profile web add github:cyanseek/dsh-landscape#1ef0e1ebbb5e84e8d2feed31ae71d1b97322f6f9
+dsh --profile web --dump-config
+```
+
+The bundle registers `dsh_landscape`. Ask DSH a need such as:
+
+> Check whether DSH already has a native Linear integration. Show the evidence and tell me whether to use, extend, or build.
+
+No separate Landscape model key is required inside DSH. The tool retrieves and verifies evidence; the host model makes the final semantic decision.
+
+### Runtime options
+
+| Argument | Default | Meaning |
+|---|---:|---|
+| `need` | required | Capability or integration described in natural language |
+| `limit` | `10` | Maximum matching projects, from 1 to 20 |
+| `fresh` | `true` | Live-check negative or uncertain results through GitHub search |
+
+There is no required plugin configuration. Anonymous GitHub search works out of the box; an existing `GITHUB_TOKEN` can increase API limits. Its value is never included in tool output.
+
+### Uninstall
+
+```bash
+dsh plugin --profile web remove dsh-landscape
+```
+
+DSH unregisters the tool when the bundle is removed. Replace `web` with the profile you actually use.
+
+## Use as an Agent Skill
+
+Use once without permanent installation:
 
 ```bash
 npx -y skills use cyanseek/dsh-landscape --skill dsh-landscape --agent codex
 ```
 
-Then ask:
-
-> Does DeepSeek Harness already have a native Linear integration? If not, tell me exactly what is missing and prepare a build brief.
-
-The generic prompt-only form works with any capable host:
-
-```bash
-npx -y skills use cyanseek/dsh-landscape --skill dsh-landscape
-```
-
-### Install the portable Agent Skill
+Or install the portable Skill:
 
 ```bash
 npx -y skills add cyanseek/dsh-landscape --skill dsh-landscape -g -a codex -y
-npx -y skills add cyanseek/dsh-landscape --skill dsh-landscape -g -y
 ```
 
-When used as an Agent Skill, DSH Landscape reuses the host Agent's model capability and needs no separate Landscape API key. When run standalone, full semantic analysis requires a configured LLM provider; without one, the CLI runs in transparent search-only mode.
+The generic prompt-only form works with other capable hosts by omitting `--agent codex`.
 
-## Or run the CLI directly
+## Run the CLI
 
-The GitHub-source path works before npm publication:
+The GitHub-source commands work without an npm release:
 
 ```bash
 npx -y github:cyanseek/dsh-landscape find "browser automation"
@@ -45,7 +78,7 @@ npx -y github:cyanseek/dsh-landscape analyze "Linear integration for DSH"
 npx -y github:cyanseek/dsh-landscape brief "Linear integration for DSH" --format agent
 ```
 
-For full standalone semantic analysis, configure one OpenAI-compatible provider. Explicit Landscape settings take precedence:
+When used by a host Agent, Landscape reuses that host's semantic capability. For standalone semantic analysis, configure one OpenAI-compatible provider:
 
 ```bash
 export DSH_LANDSCAPE_API_KEY="your-key"
@@ -54,148 +87,82 @@ export DSH_LANDSCAPE_MODEL="your-model"
 npx -y github:cyanseek/dsh-landscape analyze "Linear integration for DSH"
 ```
 
-DeepSeek can also be selected through its standard key; the CLI uses the official API base and the default model verified during the v0.1.0 release checks unless you override the Landscape settings above:
-
-```bash
-export DEEPSEEK_API_KEY="your-key"
-npx -y github:cyanseek/dsh-landscape analyze "browser automation"
-```
-
-Without an Agent or LLM key, evidence retrieval still works:
-
-```bash
-npx -y github:cyanseek/dsh-landscape find "Linear"
-```
-
-The package name is reserved in project metadata but is **not claimed as published to npm** in v0.1.0. This README intentionally does not advertise `dsh-landscape@latest` until publication is verified.
-
-## A 20-second result
-
-Illustrative host-Agent result using the bundled snapshot generated on 2026-08-13 UTC:
-
-```text
-Verdict: PARTIAL
-
-Already covered
-- fakechris/dsh-track — prototype — Linear-shaped local issue storage
-- dsh-external/dsh-track — unknown — a catalog entry for the same capability shape
-
-Still missing
-- A verified native connector to Linear's hosted issues and projects
-
-Recommendation: INVESTIGATE both records first. EXTEND only if the local issue engine is reusable; otherwise BUILD the connector without duplicating its task model.
-Confidence: scoped to the current GitHub topic + Awesome catalog, with fresh verification
-Intelligence: Host Agent over DSH Landscape evidence
-```
-
-The CLI marks host-Agent results as provisional evidence because the host performs the final semantic comparison. Search-only mode never turns a negative retrieval result into a semantic GAP.
-
-## Intelligence modes
-
-| Mode | Keys | What it can honestly do |
-|---|---:|---|
-| Host Agent | No extra Landscape key | Retrieve/verify evidence; the current Agent performs semantic need decomposition and recommendation |
-| Standalone LLM | One configured OpenAI-compatible provider | Perform a real provider request, then report `configured`, `ready`, or `failed` without exposing the key |
-| Search-only | None | Find and rank projects, show maturity/provenance, and return clearly provisional analysis; negative results remain `UNKNOWN` |
-
-Inspect capability without making a model request:
+Without a key, retrieval still works and negative results remain explicitly provisional. Inspect the active intelligence mode without making a model request:
 
 ```bash
 npx -y github:cyanseek/dsh-landscape status --json
 ```
 
-`analyze` and `brief` run the same preflight automatically. With `--json`, stdout is pure JSON and status goes to stderr.
+The package is not advertised as published to npm. Use the verified GitHub source commands above.
 
-## Why this is different
+## Result contract
 
-| Project type | Primary question | DSH Landscape's relationship |
+A result includes:
+
+- interpreted capabilities and ranked matching projects;
+- maturity and source evidence for each match;
+- covered and missing sub-capabilities;
+- discovery completeness and freshness;
+- a `covered`, `partial`, `crowded`, `placeholder-only`, `gap`, or `unknown` verdict;
+- a `use`, `extend`, `build`, `avoid-duplication`, or `investigate` recommendation.
+
+`gap` is deliberately hard to reach. Incomplete or stale discovery, failed fresh verification, or search-only reasoning downgrades a negative conclusion to `unknown`.
+
+## Surfaces
+
+| Surface | Best for | Semantic reasoning |
 |---|---|---|
-| Awesome list | What projects are curated? | Uses catalogs as attributed evidence; does not reproduce the list experience |
-| OMDSH Hub | What can I browse/manage? | Treats a Hub as a complementary structured source when data is available |
-| Find Plugins | Which plugin should I find/install? | Goes beyond retrieval to capability coverage, uncertainty, and missing sub-capabilities |
-| Plugin Check | Is this repository structurally healthy? | Consumes maturity/health evidence; does not duplicate static repository linting |
-| Compatibility radar | What changed or broke? | Can consume future runtime evidence; does not recreate monitoring as the core product |
-| **DSH Landscape** | **Given my need, what is covered, what is missing, and what should I do?** | Need → evidence → coverage → missing capability → action |
+| DSH plugin | Native checks during a Harness session | DSH host model |
+| Agent Skill | One-off or installed Agent workflows | Host Agent |
+| CLI | Automation, JSON output, and briefs | Configured provider or transparent search-only mode |
+| Node API | Application integration | Chosen by the caller |
+| Static API | Browser-safe snapshot exploration | Search-only |
 
-## Commands
-
-Only three commands are first-class in Phase 1:
-
-```text
-analyze <need>   Evidence-backed coverage analysis. Options: --json --limit --fresh --snapshot --host-agent
-find <query>     Direct deterministic project/capability retrieval. Options: --json --limit --snapshot
-brief <need>     Markdown, JSON, or coding-Agent handoff. Options: --json --format markdown|agent --fresh
-```
-
-`status` is a lightweight diagnostic utility, not a fourth workflow.
-
-## Trust model
-
-- Every verdict-affecting project record carries source provenance.
-- `placeholder`, `prototype`, `installable`, and `tested` are evidence-based. `verified` is reserved for runtime acceptance evidence.
-- Repository existence or a README claim never proves that a need is solved.
-- A GAP requires complete configured-source coverage and a fresh snapshot. Material fresh-search failure downgrades the result to UNKNOWN.
-- Archived repositories are excluded from active competition by default; forks are marked and down-ranked.
-- External repository code is never executed by the scanner.
-- API key values are never printed, serialized, or placed in fixtures.
-
-## Agent Skill and local use
-
-The portable skill lives at [`skills/dsh-landscape`](skills/dsh-landscape). Codex and current DSH both discover repository skills from `.agents/skills`.
-
-```bash
-mkdir -p .agents/skills
-cp -R skills/dsh-landscape .agents/skills/dsh-landscape
-```
-
-The Skill explicitly signals `--host-agent <name>` to the CLI. The human does not set an environment variable or supply a second model key.
-
-## Node API
+### Node API
 
 ```js
-import {
-  analyzeNeed,
-  buildBrief,
-  findPlugins,
-  loadAliases,
-  loadSnapshot,
-} from 'dsh-landscape'
+import { findPlugins, loadAliases, loadSnapshot } from 'dsh-landscape'
 
 const { snapshot } = await loadSnapshot()
 const aliasData = await loadAliases()
-const matches = findPlugins('浏览器自动化', { snapshot, aliasData, limit: 5 })
+const matches = findPlugins('browser automation', { snapshot, aliasData, limit: 5 })
 ```
 
-The CLI and library share the same core. The static site uses generated copies of the same browser-safe retrieval and verdict modules.
+Versioned static data is generated under [`site/api/v1`](site/api/v1).
 
-## Data and static API
+## Data and trust
 
-Phase 1 merges and deduplicates two independent public sources:
+The current snapshot merges and deduplicates two attributed public sources:
 
-1. the public GitHub [`dsh-plugin` topic](https://github.com/topics/dsh-plugin);
-2. the maintained [Awesome DeepSeek Harness catalog](https://github.com/0xsline/awesome-deepseek-harness/blob/main/CATALOG.md).
+1. the GitHub [`dsh-plugin` topic](https://github.com/topics/dsh-plugin);
+2. the [Awesome DeepSeek Harness catalog](https://github.com/0xsline/awesome-deepseek-harness/blob/main/CATALOG.md).
 
-The bundled snapshot keeps offline search usable. Runtime loading tries the current raw GitHub snapshot, then a local cache, then the bundled file. Generated versioned endpoints are in [`site/api/v1`](site/api/v1): `snapshot.json`, `plugins.json`, `capabilities.json`, and `gaps.json`.
+Trust rules:
 
-`gaps.json` contains explicitly labeled snapshot-derived leads, not universal gap claims.
-
-## Contributing
-
-Correct false coverage, add evidence, improve capability aliases, or strengthen source adapters. Factual changes need evidence URLs. See [CONTRIBUTING.md](CONTRIBUTING.md) and use the issue forms.
+- `placeholder`, `prototype`, `installable`, and `tested` require observable evidence; `verified` is reserved for runtime acceptance evidence.
+- Archived repositories are excluded from active competition by default, and forks are marked and down-ranked.
+- External repository code is never executed during discovery.
+- Every verdict-affecting project record retains source provenance.
+- API key values are never printed, serialized, or stored in fixtures.
 
 ## Limitations
 
-- DeepSeek Harness is in developer preview and can make compatibility-breaking changes.
-- Phase 1 covers the configured public topic and catalog, not every repository on GitHub or npm.
-- Metadata-based maturity is deliberately conservative; `tested` is not runtime verification.
-- Full semantic standalone analysis depends on the configured provider's availability and output quality.
-- The website is a search-only discovery surface. Use an Agent Skill or standalone provider for full semantic judgment.
+- DeepSeek Harness is in developer preview and may introduce breaking changes.
+- Coverage is limited to configured public sources, not every GitHub or npm project.
+- Metadata-based maturity is conservative and does not replace runtime verification.
+- Live verification depends on GitHub availability and rate limits.
+- The static website is a search-only surface; use DSH, an Agent Skill, or a configured provider for semantic judgment.
 
-## Roadmap and discoverability
+## Development
 
-Phase 2 plans include more source adapters, a capability graph, demand signals, runtime evidence integration, historical snapshots, and an optional MCP/API surface. See [ROADMAP.md](ROADMAP.md).
+Node.js 22 or newer is required. The repository has no runtime dependencies and the GitHub plugin install runs no lifecycle build scripts.
 
-Recommended repository topics: `deepseek-harness`, `dsh-plugin`, `agent-skills`, `plugin-discovery`, `ecosystem`, `gap-analysis`, `codex`.
+```bash
+npm run release:check
+npm pack --dry-run
+```
+
+The release check runs syntax checks, tests, the static build, data validation, and Skill validation. See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), and the issue forms before submitting factual changes.
 
 ## License
 
