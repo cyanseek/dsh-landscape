@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-08-14T07:53:27.247Z",
+  "generatedAt": "2026-08-14T13:47:16.331Z",
   "opportunities": [
     {
       "query": "Linear integration",
-      "verdict": "crowded",
+      "verdict": "partial",
       "confidence": 0.64,
       "missingCapabilities": [
         "linear"
@@ -18,7 +18,7 @@
     },
     {
       "query": "Jira integration",
-      "verdict": "crowded",
+      "verdict": "partial",
       "confidence": 0.54,
       "missingCapabilities": [
         "jira"
@@ -33,7 +33,7 @@
     {
       "query": "Kubernetes operations",
       "verdict": "covered",
-      "confidence": 0.54,
+      "confidence": 0.64,
       "missingCapabilities": [],
       "closestProjects": [
         "labring/sealos-skills",
@@ -44,7 +44,7 @@
     },
     {
       "query": "Notion integration",
-      "verdict": "crowded",
+      "verdict": "partial",
       "confidence": 0.54,
       "missingCapabilities": [
         "notion"
