@@ -66,6 +66,24 @@ test('executes an evidence lookup with injected deterministic data', async () =>
   assert.match(tool.output.render({}, result)[0].text, /COVERED/)
 })
 
+test('only need is required and environment inspection is best-effort', async () => {
+  const aliasData = await loadAliases()
+  const tool = createLandscapeTool({
+    loadAliases: async () => aliasData,
+    loadSnapshot: async () => ({ snapshot: syntheticSnapshot, provenance: 'synthetic' }),
+    detectEnvironment: async () => ({
+      status: 'detected', source: 'synthetic-runtime', profile: 'test', dshVersion: 'test',
+      nodeVersion: process.version, operatingSystem: process.platform, bundles: [], plugins: [],
+      availableTools: ['dsh_landscape'], duplicateModules: [], duplicateEntryIds: [], limitations: [],
+    }),
+    now: Date.parse('2099-01-01T01:00:00.000Z'),
+  })
+  const result = await tool.execute({ need: 'browser automation' }, { signal: new AbortController().signal })
+  assert.equal(result.verdict, 'covered')
+  assert.equal(result.environment.status, 'detected')
+  assert.equal(result.decision, 'USE')
+})
+
 test('rejects invalid model arguments before lookup', async () => {
   const tool = createLandscapeTool()
   await assert.rejects(tool.execute({ need: '', limit: 99 }, {}), /non-empty string/)

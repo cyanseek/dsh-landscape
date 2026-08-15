@@ -2,6 +2,8 @@ import { interpretCapabilities, meaningfulTerms, normalizeText } from './capabil
 import { isMature } from './maturity.mjs'
 import { findPlugins } from './search.mjs'
 import { competitionFor, confidenceFor, recommendationFor, verdictFor } from './verdict.mjs'
+import { notApplicableEnvironment } from './environment.mjs'
+import { enrichPreflight } from './preflight.mjs'
 
 export function analyzeStaticNeed(query, options) {
   const { snapshot, aliasData, limit = 5 } = options
@@ -21,7 +23,7 @@ export function analyzeStaticNeed(query, options) {
   if (interpretedCapabilities.length === 0 && matches.length === 0) {
     missingCapabilities.push(...meaningfulTerms(query).slice(0, 5))
   }
-  return {
+  return enrichPreflight({
     query,
     normalizedNeed: normalizeText(query),
     interpretedCapabilities,
@@ -34,5 +36,5 @@ export function analyzeStaticNeed(query, options) {
     recommendation: recommendationFor(verdict),
     coverage,
     provisional: true,
-  }
+  }, { environment: notApplicableEnvironment() })
 }

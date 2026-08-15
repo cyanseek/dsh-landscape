@@ -7,6 +7,7 @@ import { findPlugins } from './search.mjs'
 import { publicIntelligence, SCHEMA_VERSION } from './schema.mjs'
 import { snapshotFreshness } from './snapshot.mjs'
 import { competitionFor, confidenceFor, recommendationFor, verdictFor } from './verdict.mjs'
+import { enrichPreflight } from './preflight.mjs'
 
 function sourceCoverage(snapshot, freshness) {
   return {
@@ -35,7 +36,7 @@ export function analyzeNeedDeterministic(query, options = {}) {
     missingCapabilities.push(...meaningfulTerms(query).slice(0, 5))
   }
 
-  return {
+  return enrichPreflight({
     schemaVersion: SCHEMA_VERSION,
     query,
     normalizedNeed: normalizeText(query),
@@ -58,7 +59,7 @@ export function analyzeNeedDeterministic(query, options = {}) {
     intelligence: publicIntelligence(intelligence),
     semanticReasoningPerformed: false,
     provisional: true,
-  }
+  }, options)
 }
 
 function mergeLiveSnapshot(snapshot, verification) {
@@ -85,7 +86,7 @@ function applyLlmResult(analysis, semantic, intelligence) {
   if (['covered', 'partial', 'crowded'].includes(verdict) && analysis.matches.length === 0) {
     verdict = 'unknown'
   }
-  return {
+  return enrichPreflight({
     ...analysis,
     ...semantic,
     verdict,
@@ -99,14 +100,15 @@ function applyLlmResult(analysis, semantic, intelligence) {
     }),
     semanticReasoningPerformed: true,
     provisional: false,
-  }
+  }, { environment: analysis.environment, intent: analysis.intent })
 }
 
 export async function analyzeNeed(query, options = {}) {
   let workingSnapshot = options.snapshot
   let analysis = analyzeNeedDeterministic(query, options)
   if (options.fresh && ['gap', 'placeholder-only', 'unknown'].includes(analysis.verdict)) {
-    const verification = await verifyNeedFresh(query, {
+    const verifyFresh = options.verifyFresh ?? verifyNeedFresh
+    const verification = await verifyFresh(query, {
       aliasData: options.aliasData,
       capabilities: interpretCapabilities(query, options.aliasData),
       env: options.env,
@@ -126,7 +128,7 @@ export async function analyzeNeed(query, options = {}) {
       const safeAnalysis = analysis.verdict === 'gap'
         ? { ...analysis, verdict: 'unknown', recommendation: 'investigate', confidence: Math.min(analysis.confidence, 0.45) }
         : analysis
-      return {
+      return enrichPreflight({
         ...safeAnalysis,
         intelligence: publicIntelligence({
           ...options.intelligence,
@@ -138,7 +140,7 @@ export async function analyzeNeed(query, options = {}) {
         semanticError: error.message,
         semanticReasoningPerformed: false,
         provisional: true,
-      }
+      }, { environment: analysis.environment, intent: analysis.intent })
     }
   }
 

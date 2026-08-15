@@ -1,7 +1,7 @@
 {
   "name": "dsh-landscape",
-  "version": "0.2.0",
-  "description": "Find DeepSeek Harness plugins, verify what they implement, and identify missing capabilities.",
+  "version": "0.3.0",
+  "description": "Run a read-only capability preflight before changing or building for DeepSeek Harness.",
   "type": "module",
   "bin": {
     "dsh-landscape": "./src/cli.mjs"
@@ -40,6 +40,7 @@
     "plugin-discovery",
     "ecosystem",
     "gap-analysis",
+    "preflight",
     "codex"
   ],
   "repository": {

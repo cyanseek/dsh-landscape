@@ -2,6 +2,19 @@
 
 All notable changes are documented here.
 
+## [0.3.0] - 2026-08-16
+
+### Added
+
+- Zero-configuration capability preflight from one natural-language need.
+- Additive intent, read-only environment, decision, risk, build-boundary, next-action, and limitation fields.
+- Best-effort DSH Loader and Tool inventory with honest unavailable fallback and path sanitization.
+
+### Changed
+
+- Human output now leads with the preflight decision while preserving the existing evidence contract.
+- The CLI accepts a need directly while retaining `analyze`, `find`, `brief`, and `status`.
+
 ## [0.2.0] - 2026-08-14
 
 ### Added

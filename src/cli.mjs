@@ -3,37 +3,41 @@
 import { analyzeNeed } from './analyze.mjs'
 import { buildBrief, formatBriefAgent, formatBriefMarkdown } from './brief.mjs'
 import { formatIntelligenceStatus, preflightIntelligence } from './intelligence.mjs'
+import { formatPreflightText } from './preflight.mjs'
 import { findPlugins } from './search.mjs'
 import { SCHEMA_VERSION } from './schema.mjs'
 import { loadAliases, loadSnapshot, snapshotFreshness } from './snapshot.mjs'
 
-const VERSION = '0.1.0'
+const VERSION = '0.3.0'
+const COMMANDS = new Set(['analyze', 'find', 'brief', 'status'])
 
 function usage() {
   return `DSH Landscape ${VERSION}
 
 Usage:
+  dsh-landscape "<natural-language need>" [--json] [--limit <n>] [--fresh] [--snapshot <path-or-url>]
   dsh-landscape analyze <need> [--json] [--limit <n>] [--fresh] [--snapshot <path-or-url>] [--host-agent <name>]
   dsh-landscape find <query> [--json] [--limit <n>] [--snapshot <path-or-url>]
   dsh-landscape brief <need> [--json] [--format markdown|agent] [--fresh] [--snapshot <path-or-url>] [--host-agent <name>]
   dsh-landscape status [--json] [--host-agent <name>]
 
-Full standalone semantic analysis uses DSH_LANDSCAPE_API_KEY,
-DSH_LANDSCAPE_BASE_URL, and DSH_LANDSCAPE_MODEL. Search works without them.
+No account, key, profile, setup, or mode selection is required. Landscape is
+read-only and uses its bundled snapshot when live discovery is unavailable.
 `
 }
 
 function parseArguments(argv) {
-  const command = argv[0]
+  const explicitCommand = COMMANDS.has(argv[0])
+  const command = explicitCommand ? argv[0] : 'analyze'
   const values = []
-  const options = { json: false, fresh: false, limit: 10, format: 'markdown' }
+  const options = { json: false, fresh: !explicitCommand, limit: 10, format: 'markdown', implicit: !explicitCommand }
   const valueOptions = new Map([
     ['--limit', 'limit'],
     ['--snapshot', 'snapshot'],
     ['--host-agent', 'hostAgent'],
     ['--format', 'format'],
   ])
-  for (let index = 1; index < argv.length; index += 1) {
+  for (let index = explicitCommand ? 1 : 0; index < argv.length; index += 1) {
     const argument = argv[index]
     if (argument === '--json') options.json = true
     else if (argument === '--fresh') options.fresh = true
@@ -79,28 +83,6 @@ function formatFindHuman(query, results, snapshot, provenance) {
   return `${lines.join('\n')}\n`
 }
 
-function formatAnalysisHuman(analysis) {
-  const live = analysis.coverage.liveVerification
-  const lines = [
-    'DSH Landscape', '', 'Need', analysis.query, '', 'Verdict',
-    `${analysis.verdict.toUpperCase()}${analysis.provisional ? ' — provisional' : ''}`,
-    '', 'Existing coverage',
-  ]
-  if (analysis.matches.length === 0) lines.push('- No related implementation was established.')
-  for (const match of analysis.matches.slice(0, 5)) {
-    lines.push(`- ${match.repository} — ${match.maturity} — ${match.description || 'No description.'}`)
-  }
-  lines.push('', 'Missing capability')
-  lines.push(...(analysis.missingCapabilities.length > 0
-    ? analysis.missingCapabilities.map((item) => `- ${item}`)
-    : ['- No missing capability was established.']))
-  lines.push('', 'Confidence')
-  lines.push(`${analysis.confidence} — sources ${analysis.coverage.complete ? 'complete' : 'incomplete'}; snapshot ${analysis.coverage.fresh ? 'fresh' : 'stale'}${live ? `; fresh verification ${live.complete ? 'complete' : 'incomplete'}` : ''}`)
-  lines.push('', 'Recommendation', analysis.recommendation.toUpperCase())
-  if (analysis.semanticError) lines.push('', `Semantic provider failed safely: ${analysis.semanticError}`)
-  return `${lines.join('\n')}\n`
-}
-
 async function runFind(query, options) {
   const aliasData = await loadAliases()
   const { snapshot, provenance } = await loadSnapshot({ source: options.snapshot })
@@ -117,7 +99,7 @@ async function runFind(query, options) {
 
 async function analysisContext(query, options) {
   const preflight = preflightIntelligence({ hostAgent: options.hostAgent })
-  emitStatus(preflight.intelligence, options)
+  if (!options.implicit) emitStatus(preflight.intelligence, options)
   const aliasData = await loadAliases()
   const { snapshot, provenance } = await loadSnapshot({ source: options.snapshot })
   const analysis = await analyzeNeed(query, {
@@ -139,7 +121,7 @@ async function analysisContext(query, options) {
 async function runAnalyze(query, options) {
   const analysis = await analysisContext(query, options)
   if (options.json) writeJson(analysis)
-  else process.stdout.write(formatAnalysisHuman(analysis))
+  else process.stdout.write(formatPreflightText(analysis))
 }
 
 async function runBrief(query, options) {

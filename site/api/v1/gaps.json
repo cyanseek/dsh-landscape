@@ -5,7 +5,7 @@
     {
       "query": "Linear integration",
       "verdict": "crowded",
-      "confidence": 0.9,
+      "confidence": 0.78,
       "missingCapabilities": [
         "linear"
       ],
@@ -19,7 +19,7 @@
     {
       "query": "Jira integration",
       "verdict": "crowded",
-      "confidence": 0.8,
+      "confidence": 0.68,
       "missingCapabilities": [
         "jira"
       ],
@@ -33,7 +33,7 @@
     {
       "query": "Kubernetes operations",
       "verdict": "partial",
-      "confidence": 0.8,
+      "confidence": 0.68,
       "missingCapabilities": [
         "kubernetes"
       ],
@@ -47,7 +47,7 @@
     {
       "query": "Notion integration",
       "verdict": "crowded",
-      "confidence": 0.8,
+      "confidence": 0.68,
       "missingCapabilities": [
         "notion"
       ],

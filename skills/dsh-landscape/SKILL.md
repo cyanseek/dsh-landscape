@@ -1,36 +1,46 @@
 ---
 name: dsh-landscape
 description: >-
-  Find existing DeepSeek Harness plugins and capabilities, determine whether a DSH need is covered, partial, crowded, placeholder-only, unknown, or a genuine gap, and generate build-ready ecosystem briefs. Use when a user asks whether DSH already supports something, wants a DSH plugin recommendation, wants to avoid duplicating an existing plugin, wants to identify a plugin opportunity, or asks what is missing in the DeepSeek Harness ecosystem.
+  Run a read-only capability preflight before adding, installing, comparing, replacing, upgrading, disabling, composing, or building for DeepSeek Harness. Use when a user asks whether DSH already supports something, which plugin fits, whether an option fits the current profile, what risks or duplicates exist, what should not be rebuilt, or what genuinely remains missing.
 license: MIT
 ---
 
-# DSH Landscape
+# DSH Landscape Capability Preflight
 
-Preserve the user's original natural-language need. Complete discovery, evidence retrieval, semantic review, and recommendation without asking the user to configure Landscape-specific credentials.
+Before any DSH capability mutation or implementation, run Landscape. Preserve the user's original natural-language need and complete the preflight without asking them to select a mode, provide a profile, refresh data, initialize Landscape, or configure Landscape-specific credentials.
 
-## Query workflow
+## Default workflow
 
-1. Identify the current host as `codex`, `dsh`, `claude-code`, `opencode`, or another short kebab-case name.
-2. Run the bundled query router. Pass the host explicitly so the CLI records host-Agent mode without human configuration:
+1. Run the bundled router with the need itself. The Agent supplies its own host signal internally; the human does not:
 
    ```bash
-   node scripts/query.mjs analyze "<original need>" --host-agent codex
+   node scripts/query.mjs "<original need>" --host-agent codex
    ```
 
-   The router uses a repository-local CLI when present and the GitHub zero-install package otherwise. It automatically requests JSON and fresh negative verification.
-3. Read the JSON evidence. Use the host model to evaluate the intended capability, maturity evidence, overlap, missing sub-capability, and recommendation. Treat the CLI verdict as provisional when `semanticReasoningPerformed` is false.
-4. For `gap` or `placeholder-only`, require both `coverage.complete` and `coverage.fresh`; also require successful `coverage.liveVerification` when it was attempted. Otherwise report `UNKNOWN`.
-5. Never equate a repository name or README claim with a working implementation. Use maturity evidence and source URLs.
-6. If the user wants to build the missing capability, run:
+   The router prefers the repository-local CLI and otherwise uses the GitHub zero-install source. It requests structured JSON and fresh verification only when a negative or uncertain result needs it.
+2. Read `intent`, `environment`, ecosystem evidence, `risks`, `decision`, `doNotBuild`, `buildOnly`, `nextAction`, and `limitations`. Use host reasoning to review the evidence; do not expose internal mode selection as a user task.
+3. If `environment.status` is `unavailable`, continue with ecosystem-only evidence, state the limitation, and do not ask for a path or profile. If it is `partial`, use only the fields actually returned.
+4. Never equate a repository name or README claim with a working implementation. For `gap`, require complete and fresh coverage plus successful live verification when attempted; otherwise return `INVESTIGATE` / `UNKNOWN`.
+5. Keep the preflight read-only. Do not install, enable, disable, upgrade, uninstall, edit a profile, or create a repository unless the user separately requests that action.
+6. If the user has requested implementation and the decision still permits it, generate the compatible detailed handoff:
 
    ```bash
    node scripts/query.mjs brief "<original need>" --host-agent codex
    ```
 
-   Refine the handoff with host reasoning, then continue the user's coding workflow. Do not duplicate mature projects without an explicit extension boundary.
-7. Return one concise verdict, closest projects, the exact missing capability, recommendation, confidence/coverage provenance, and build-brief status when applicable.
+   Build only `buildOnly`; preserve every item in `doNotBuild`. Prefer extension or composition over duplicating mature coverage.
+7. Return the compact structure in `references/result-format.md`, leading with the decision and immediate next action.
 
-Do not request GitHub credentials during the normal workflow. Do not install a discovered plugin or modify a DSH profile unless the user explicitly asks.
+## Compatible advanced routes
+
+The existing explicit routes remain available for targeted discovery or build handoffs:
+
+```bash
+node scripts/query.mjs find "<query>"
+node scripts/query.mjs analyze "<original need>" --host-agent codex
+node scripts/query.mjs brief "<original need>" --host-agent codex
+```
+
+Do not request GitHub credentials during the normal workflow. A failed live lookup falls back to the bundled snapshot and weakens a negative claim; it never blocks the preflight or creates a gap claim.
 
 Read [references/methodology.md](references/methodology.md) before resolving a negative verdict or maturity dispute. Read [references/result-format.md](references/result-format.md) when formatting the final answer. Read [references/dsh-extension-map.md](references/dsh-extension-map.md) only when producing a build brief.

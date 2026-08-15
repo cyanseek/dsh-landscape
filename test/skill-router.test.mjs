@@ -9,3 +9,9 @@ test('Windows Skill fallback executes npx through Node without a command shell',
   assert.ok(!router.includes('npx.cmd'))
   assert.match(router, /shell:\s*false/)
 })
+
+test('Skill router treats a natural-language need as analyze without requiring a human mode choice', () => {
+  assert.match(router, /const command = explicitCommand \? argv\[0\] : 'analyze'/)
+  assert.match(router, /let hostAgent = 'agent'/)
+  assert.ok(!router.includes('Pass --host-agent <name>'))
+})

@@ -6,16 +6,16 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 function usage() {
-  return 'Usage: node scripts/query.mjs <analyze|find|brief> <need> [--host-agent <name>] [--limit <n>] [--snapshot <path-or-url>]\n'
+  return 'Usage: node scripts/query.mjs [analyze|find|brief] <natural-language need> [--host-agent <name>] [--limit <n>] [--snapshot <path-or-url>]\n'
 }
 
 function parse(argv) {
-  const command = argv[0]
-  if (!['analyze', 'find', 'brief'].includes(command)) throw new Error(usage().trim())
+  const explicitCommand = ['analyze', 'find', 'brief'].includes(argv[0])
+  const command = explicitCommand ? argv[0] : 'analyze'
   const need = []
   const passthrough = []
-  let hostAgent = ''
-  for (let index = 1; index < argv.length; index += 1) {
+  let hostAgent = 'agent'
+  for (let index = explicitCommand ? 1 : 0; index < argv.length; index += 1) {
     const value = argv[index]
     if (value === '--host-agent') {
       hostAgent = argv[++index] ?? ''
@@ -28,9 +28,6 @@ function parse(argv) {
     else need.push(value)
   }
   if (need.length === 0) throw new Error('A natural-language DSH need is required')
-  if (command !== 'find' && !hostAgent) {
-    throw new Error('Pass --host-agent <name>; the Agent supplies this automatically, not the human')
-  }
   return { command, need: need.join(' '), hostAgent, passthrough }
 }
 

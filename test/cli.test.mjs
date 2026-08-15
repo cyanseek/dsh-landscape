@@ -57,3 +57,13 @@ test('brief search-only JSON is a limited evidence packet', async () => {
   assert.equal(payload.kind, 'limited-evidence-packet')
   assert.deepEqual(payload.proposedMvp, [])
 })
+
+test('a natural-language need is the zero-configuration CLI entry', async () => {
+  const result = await run(['Install browser automation for DSH', '--json', '--snapshot', fixture])
+  assert.equal(result.code, 0)
+  const payload = JSON.parse(result.stdout)
+  assert.equal(payload.intent.kind, 'install')
+  assert.equal(payload.environment.status, 'unavailable')
+  assert.equal(payload.decision, 'INSTALL')
+  assert.equal(result.stderr, '')
+})

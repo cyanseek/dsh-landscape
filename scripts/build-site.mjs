@@ -47,7 +47,7 @@ await writeJson('plugins.json', { schemaVersion: SCHEMA_VERSION, generatedAt: sn
 await writeJson('capabilities.json', { ...aliases, generatedAt: snapshot.generatedAt, counts: capabilityCounts })
 await writeJson('gaps.json', { schemaVersion: SCHEMA_VERSION, generatedAt: snapshot.generatedAt, opportunities })
 
-for (const name of ['capabilities.mjs', 'maturity.mjs', 'search.mjs', 'site-analysis.mjs', 'verdict.mjs']) {
+for (const name of ['capabilities.mjs', 'environment.mjs', 'intent.mjs', 'maturity.mjs', 'preflight.mjs', 'search.mjs', 'site-analysis.mjs', 'verdict.mjs']) {
   await copyFile(resolve(ROOT, 'src', name), resolve(CORE, name))
 }
 process.stdout.write(`Built static API for ${snapshot.plugins.length} plugins and ${opportunities.length} opportunity leads.\n`)

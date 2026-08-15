@@ -1,19 +1,26 @@
 # Agent result format
 
-Keep the default answer compact:
+Keep the default answer compact and action-first:
 
 ```text
-Verdict: PARTIAL
+DSH Capability Preflight
 
-Already covered
+Need
+- Add Linear issue management to this DSH setup.
+
+Current environment
+- PARTIAL: plugin and tool inventory available; profile and version unavailable.
+
+Existing coverage
 - owner/project — Tested — short evidence-backed role
 
-Still missing
-- Exact missing sub-capability
+Risks
+- UNKNOWN: current version compatibility is not exposed.
 
-Recommendation: EXTEND owner/project; do not duplicate its working surface.
-Confidence: 0.84 (two source catalogs complete; live GitHub verification complete)
-Intelligence: Host Agent (Codex) over DSH Landscape evidence
+Decision: EXTEND
+Do not build: the tested issue-query surface in owner/project.
+Build only: the exact missing mutation surface.
+Next action: verify the extension seam; make no profile change yet.
 ```
 
-Include source links beside contested claims. If coverage is incomplete, lead with `UNKNOWN` and name the failed/stale coverage rather than burying it.
+Include source links beside contested claims. Keep the legacy verdict, recommendation, confidence, and discovery provenance available when relevant. If coverage is incomplete, use `INVESTIGATE` / `UNKNOWN` and name the failed or stale coverage rather than burying it.
