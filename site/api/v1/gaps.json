@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-08-15T01:52:39.902Z",
+  "generatedAt": "2026-08-15T07:00:27.360Z",
   "opportunities": [
     {
       "query": "Linear integration",
@@ -24,8 +24,8 @@
         "jira"
       ],
       "closestProjects": [
+        "uddoo/dsh-dashboard",
         "harcochen/dsh-vsc-integration",
-        "omdsh-dev/dsh-github-integration",
         "dsh-external/dsh-github-integration"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
@@ -51,8 +51,8 @@
       ],
       "closestProjects": [
         "harcochen/dsh-vsc-integration",
-        "omdsh-dev/dsh-github-integration",
-        "dsh-external/dsh-github-integration"
+        "dsh-external/dsh-github-integration",
+        "anionex/dsh-vision-toolkit"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     }
