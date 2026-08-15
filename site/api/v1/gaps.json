@@ -1,60 +1,58 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-08-13T19:03:20.370Z",
+  "generatedAt": "2026-08-15T13:01:36.174Z",
   "opportunities": [
     {
       "query": "Linear integration",
-      "verdict": "crowded",
-      "confidence": 0.78,
+      "verdict": "partial",
+      "confidence": 0.64,
       "missingCapabilities": [
         "linear"
       ],
       "closestProjects": [
         "openma-ai/open-managed-agents",
-        "fakechris/dsh-track",
-        "dsh-external/dsh-track"
+        "uddoo/dsh-dashboard",
+        "fakechris/dsh-track"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
     {
       "query": "Jira integration",
-      "verdict": "crowded",
-      "confidence": 0.68,
+      "verdict": "partial",
+      "confidence": 0.54,
       "missingCapabilities": [
         "jira"
       ],
       "closestProjects": [
+        "uddoo/dsh-dashboard",
         "harcochen/dsh-vsc-integration",
-        "omdsh-dev/dsh-github-integration",
         "dsh-external/dsh-github-integration"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
     {
       "query": "Kubernetes operations",
-      "verdict": "partial",
-      "confidence": 0.68,
-      "missingCapabilities": [
-        "kubernetes"
-      ],
+      "verdict": "covered",
+      "confidence": 0.64,
+      "missingCapabilities": [],
       "closestProjects": [
+        "labring/sealos-skills",
         "cofy-x/axern",
-        "runzhliu/deepseek-harness-docker",
-        "degurechaff57/dsh-openapi"
+        "runzhliu/deepseek-harness-docker"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
     {
       "query": "Notion integration",
-      "verdict": "crowded",
-      "confidence": 0.68,
+      "verdict": "partial",
+      "confidence": 0.54,
       "missingCapabilities": [
         "notion"
       ],
       "closestProjects": [
         "harcochen/dsh-vsc-integration",
-        "omdsh-dev/dsh-github-integration",
-        "dsh-external/dsh-github-integration"
+        "dsh-external/dsh-github-integration",
+        "anionex/dsh-vision-toolkit"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     }
