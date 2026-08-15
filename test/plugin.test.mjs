@@ -44,6 +44,10 @@ test('registers the DSH runtime tool through the tools service', () => {
   assert.deepEqual(inject, ['tools'])
   assert.equal(definition.name, 'dsh_landscape')
   assert.ok(definition.output.schema.required.includes('verdict'))
+  assert.ok(definition.output.schema.required.includes('decision'))
+  assert.deepEqual(definition.output.schema.properties.decision.enum, [
+    'USE', 'INSTALL', 'COMPOSE', 'EXTEND', 'BUILD', 'WAIT', 'DISABLE', 'INVESTIGATE',
+  ])
   assert.ok(!JSON.stringify(definition.output.schema).includes('"required":true'))
 })
 

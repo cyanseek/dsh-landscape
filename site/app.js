@@ -20,6 +20,11 @@ function appendTextList(target, values, fallback) {
   }
 }
 
+function truncate(value, limit = 180) {
+  const text = String(value ?? '').trim()
+  return text.length > limit ? `${text.slice(0, limit - 1).trimEnd()}…` : text
+}
+
 function renderMatch(match) {
   const item = document.createElement('li')
   const link = document.createElement('a')
@@ -28,7 +33,7 @@ function renderMatch(match) {
   link.rel = 'noreferrer'
   const meta = document.createElement('small')
   const terms = [...match.matchedCapabilities, ...match.matchedTerms].slice(0, 5).join(', ')
-  meta.textContent = `${match.maturity} · ${terms || 'metadata match'} · ${match.description || 'No description'}`
+  meta.textContent = `${match.maturity} · ${terms || 'metadata match'} · ${truncate(match.description || 'No description')}`
   item.append(link, meta)
   return item
 }
@@ -38,11 +43,11 @@ function quoteShell(value) {
 }
 
 function renderAnalysis(analysis) {
-  document.querySelector('#result-title').textContent = analysis.normalizedNeed || analysis.query
-  document.querySelector('#verdict').textContent = analysis.verdict.toUpperCase()
+  document.querySelector('#result-title').textContent = analysis.query
+  document.querySelector('#decision').textContent = analysis.decision
   document.querySelector('#result-note').textContent = analysis.verdict === 'unknown'
-    ? 'The static site is search-only. An Agent can perform semantic review and fresh negative verification without a separate Landscape key.'
-    : 'This is a deterministic, provisional retrieval verdict. Use the Agent path for full semantic review.'
+    ? 'The static site cannot establish a negative result. Use the Agent path for fresh, host-aware review—no separate Landscape key required.'
+    : 'This browser result is a provisional ecosystem preflight. Runtime environment inspection is available only inside a compatible host.'
   const matches = document.querySelector('#matches')
   matches.replaceChildren()
   if (analysis.matches.length === 0) {
@@ -50,9 +55,12 @@ function renderAnalysis(analysis) {
     item.textContent = 'No related project was established in the current snapshot.'
     matches.append(item)
   } else analysis.matches.forEach((match) => matches.append(renderMatch(match)))
-  appendTextList(document.querySelector('#missing'), analysis.missingCapabilities, 'No missing sub-capability was established.')
-  document.querySelector('#recommendation').textContent = analysis.recommendation.toUpperCase()
-  document.querySelector('#confidence').textContent = `Confidence ${analysis.confidence} · sources ${analysis.coverage.complete ? 'complete' : 'incomplete'} · snapshot ${analysis.coverage.fresh ? 'fresh' : 'stale'}`
+  document.querySelector('#environment').textContent = `${analysis.environment.status.toUpperCase()} · static snapshot`
+  appendTextList(document.querySelector('#risks'), analysis.risks.map((risk) => `${risk.level.toUpperCase()}: ${risk.summary}`), 'No evidence-backed risk was established.')
+  appendTextList(document.querySelector('#do-not-build'), analysis.doNotBuild.map((item) => item.split(':')[0]), 'No mature overlap was established.')
+  appendTextList(document.querySelector('#build-only'), analysis.buildOnly, 'Nothing is safe to build from this result.')
+  document.querySelector('#next-action').textContent = analysis.nextAction
+  document.querySelector('#confidence').textContent = `Evidence verdict ${analysis.verdict.toUpperCase()} · legacy recommendation ${analysis.recommendation.toUpperCase()} · confidence ${analysis.confidence} · sources ${analysis.coverage.complete ? 'complete' : 'incomplete'} · snapshot ${analysis.coverage.fresh ? 'fresh' : 'stale'}`
   const agentCommand = `npx -y skills use cyanseek/dsh-landscape --skill dsh-landscape --agent codex`
   const briefCommand = `npx -y github:cyanseek/dsh-landscape brief ${quoteShell(analysis.query)} --format agent --host-agent codex --fresh`
   document.querySelector('#agent-command').textContent = agentCommand
@@ -115,7 +123,7 @@ form.addEventListener('submit', (event) => {
   renderAnalysis(analyzeStaticNeed(query, {
     snapshot: loadedSnapshot,
     aliasData: loadedAliases,
-    limit: 5,
+    limit: 4,
   }))
 })
 

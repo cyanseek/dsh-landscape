@@ -108,3 +108,24 @@ test('failed fresh discovery cannot turn an uncertain negative result into a gap
   assert.equal(result.decision, 'INVESTIGATE')
   assert.equal(result.coverage.liveVerification.complete, false)
 })
+
+test('decision actions preserve conservative build and runtime boundaries', () => {
+  const partial = analyze('Compose browser automation and GitHub operations')
+  assert.equal(partial.verdict, 'partial')
+  assert.equal(partial.decision, 'COMPOSE')
+  assert.ok(partial.doNotBuild.some((item) => item.includes('acme/browser-kit')))
+  assert.ok(partial.buildOnly.includes('github'))
+
+  assert.equal(analyze('Build quantum teleportation for DSH').decision, 'BUILD')
+  assert.equal(analyze('Build a Linear integration for DSH').decision, 'WAIT')
+
+  const runtime = {
+    status: 'partial', source: 'synthetic-runtime', profile: null, dshVersion: null,
+    plugins: [{ entryId: 'browser', moduleName: 'browser-kit', enabled: true, phase: 'active' }],
+    availableTools: [], bundles: [], duplicateModules: [], duplicateEntryIds: [], limitations: [],
+  }
+  assert.equal(analyze('Disable browser automation', { environment: runtime }).decision, 'DISABLE')
+  const upgrade = analyze('Upgrade browser automation', { environment: runtime })
+  assert.equal(upgrade.decision, 'INVESTIGATE')
+  assert.ok(upgrade.risks.some((risk) => risk.code === 'compatibility-unknown'))
+})

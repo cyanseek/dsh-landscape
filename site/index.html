@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#071511">
-    <meta name="description" content="Find DeepSeek Harness plugins, verify what they implement, identify missing DSH capabilities, and generate build-ready briefs.">
-    <meta property="og:title" content="DSH Landscape — Know what exists. Find what's missing.">
-    <meta property="og:description" content="Evidence-first ecosystem intelligence for DeepSeek Harness plugins and missing capabilities.">
+    <meta name="description" content="Run a read-only capability preflight before adding, replacing, upgrading, or building for DeepSeek Harness.">
+    <meta property="og:title" content="DSH Landscape — Capability preflight for DeepSeek Harness">
+    <meta property="og:description" content="Ask one natural-language need. See existing coverage, risks, what not to build, and the safest next action.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://cyanseek.github.io/dsh-landscape/">
-    <title>DSH Landscape — DeepSeek Harness ecosystem intelligence</title>
+    <title>DSH Landscape — Capability preflight for DeepSeek Harness</title>
     <link rel="icon" href="./favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./styles.css">
     <script type="module" src="./app.js"></script>
@@ -29,21 +29,22 @@
 
     <main id="main">
       <section class="hero" aria-labelledby="hero-title">
-        <p class="eyebrow">NEED-FIRST ECOSYSTEM INTELLIGENCE</p>
-        <h1 id="hero-title">Know what exists.<br><em>Find what's missing.</em></h1>
-        <p class="hero-copy">Describe what you wish DeepSeek Harness could do. Landscape finds nearby projects, separates implementations from placeholders, and shows what still needs evidence.</p>
+        <p class="eyebrow">READ-ONLY · ZERO-CONFIG · OFFLINE-FIRST</p>
+        <h1 id="hero-title">Changing DSH?<br><em>Preflight it first.</em></h1>
+        <p class="hero-copy">Describe one capability change. Landscape checks ecosystem evidence and returns what to use, what not to rebuild, and the safest next action—without an account, key, or setup.</p>
 
         <form id="analysis-form" class="analysis-form">
-          <label for="need">What do you wish DeepSeek Harness could do?</label>
+          <label for="need">What are you considering changing in DeepSeek Harness?</label>
           <div class="input-row">
-            <input id="need" name="need" type="search" autocomplete="off" required placeholder="Integrate with Linear and manage issues natively">
-            <button type="submit">Analyze <span aria-hidden="true">→</span></button>
+            <input id="need" name="need" type="search" autocomplete="off" required placeholder="Should I install browser automation, or is it already covered?">
+            <button type="submit">Run preflight <span aria-hidden="true">→</span></button>
           </div>
           <div class="examples" aria-label="Example needs">
             <span>Try</span>
-            <button type="button" data-example="Browser automation">browser automation</button>
-            <button type="button" data-example="Native GitHub issue and PR operations">GitHub operations</button>
-            <button type="button" data-example="Linear integration">Linear integration</button>
+            <button type="button" data-example="Should I install browser automation, or is it already covered?">install browser</button>
+            <button type="button" data-example="Compare GitHub issue and pull request integrations for DSH">compare GitHub</button>
+            <button type="button" data-example="Can I replace my current search plugin without losing capabilities?">replace search</button>
+            <button type="button" data-example="Before we build a Linear integration, show what not to duplicate">build Linear</button>
           </div>
         </form>
 
@@ -58,34 +59,50 @@
         <article class="result-card">
           <div class="result-head">
             <div>
-              <p class="eyebrow">PROVISIONAL RETRIEVAL RESULT</p>
+              <p class="eyebrow">STATIC · READ-ONLY PREFLIGHT</p>
               <h2 id="result-title">Result</h2>
             </div>
-            <span id="verdict" class="verdict">UNKNOWN</span>
+            <span id="decision" class="verdict">INVESTIGATE</span>
           </div>
           <p id="result-note" class="result-note"></p>
           <div class="result-grid">
             <section>
-              <h3>Nearest evidence</h3>
+              <h3>Existing coverage</h3>
               <ol id="matches" class="match-list"></ol>
             </section>
-            <section>
-              <h3>Still missing</h3>
-              <ul id="missing" class="plain-list"></ul>
-              <h3>Recommendation</h3>
-              <p id="recommendation" class="recommendation"></p>
-              <p id="confidence" class="confidence"></p>
+            <section class="decision-stack">
+              <div>
+                <h3>Current environment</h3>
+                <p id="environment" class="recommendation"></p>
+              </div>
+              <div>
+                <h3>Risks</h3>
+                <ul id="risks" class="plain-list"></ul>
+              </div>
+              <div>
+                <h3>Do not build</h3>
+                <ul id="do-not-build" class="plain-list"></ul>
+              </div>
+              <div>
+                <h3>Build only</h3>
+                <ul id="build-only" class="plain-list"></ul>
+              </div>
             </section>
+          </div>
+          <div class="next-action">
+            <h3>Next action</h3>
+            <p id="next-action"></p>
+            <p id="confidence" class="confidence"></p>
           </div>
           <div class="command-panel">
             <div>
-              <span>Use with an Agent for semantic review</span>
+              <span>Run with an Agent for host-aware review</span>
               <code id="agent-command"></code>
             </div>
             <button id="copy-command" type="button">Copy</button>
           </div>
           <details>
-            <summary>Generate a build brief</summary>
+            <summary>Compatible build-brief command</summary>
             <code id="brief-command" class="block-code"></code>
           </details>
         </article>
@@ -109,18 +126,18 @@
       <section id="how" class="how">
         <div>
           <p class="eyebrow">HOW IT WORKS</p>
-          <h2>A need, not a directory.</h2>
+          <h2>One need. One safe decision.</h2>
         </div>
         <ol>
-          <li><span>01</span><strong>Retrieve</strong><p>Search names, descriptions, topics, catalog evidence, and bilingual capability aliases.</p></li>
-          <li><span>02</span><strong>Verify</strong><p>Separate placeholders, prototypes, installable projects, and tested implementations.</p></li>
-          <li><span>03</span><strong>Decide</strong><p>Use host-Agent reasoning to choose USE, EXTEND, BUILD, AVOID DUPLICATION, or INVESTIGATE.</p></li>
+          <li><span>01</span><strong>Understand</strong><p>Infer whether you want to find, compare, install, replace, upgrade, compose, or build.</p></li>
+          <li><span>02</span><strong>Check</strong><p>Review ecosystem evidence and, inside DSH, any runtime inventory the host safely exposes.</p></li>
+          <li><span>03</span><strong>Decide</strong><p>Return risks, a direct action, explicit build boundaries, and one minimal next step.</p></li>
         </ol>
       </section>
     </main>
 
     <footer>
-      <p>DSH Landscape is independent open-source ecosystem infrastructure.</p>
+      <p>Read-only capability preflight for the DeepSeek Harness ecosystem.</p>
       <p><a href="https://github.com/cyanseek/dsh-landscape">Source & data provenance</a> · MIT</p>
     </footer>
   </body>

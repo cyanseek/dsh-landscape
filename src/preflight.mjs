@@ -15,15 +15,19 @@ function installedOverlap(analysis, environment) {
     .map((value) => String(value).toLowerCase()))
   return environment.plugins?.filter((plugin) => {
     const moduleName = String(plugin.moduleName ?? '').toLowerCase()
-    return [...candidates].some((candidate) => moduleName === candidate || moduleName.endsWith(`/${candidate.split('/').at(-1)}`))
+    return [...candidates].some((candidate) => {
+      const leaf = candidate.split('/').at(-1)
+      return moduleName === candidate || moduleName === leaf || moduleName.endsWith(`/${leaf}`)
+    })
   }) ?? []
 }
 
 function decisionFor(analysis, intent, environment) {
   const installed = installedOverlap(analysis, environment)
   if (intent.kind === 'disable') return installed.length > 0 ? 'DISABLE' : 'INVESTIGATE'
-  if (['replace', 'upgrade'].includes(intent.kind) && !['detected', 'partial'].includes(environment.status)) {
-    return 'INVESTIGATE'
+  if (['replace', 'upgrade'].includes(intent.kind)) {
+    if (installed.length === 0 || !environment.dshVersion) return 'INVESTIGATE'
+    return analysis.verdict === 'covered' || analysis.verdict === 'crowded' ? 'INSTALL' : 'INVESTIGATE'
   }
   if (analysis.verdict === 'covered' || analysis.verdict === 'crowded') {
     if (intent.kind === 'install') return 'INSTALL'
@@ -53,6 +57,11 @@ function risksFor(analysis, intent, environment) {
     level: 'unknown',
     code: 'environment-unavailable',
     summary: zh ? '当前 DSH 环境不可见，无法核对已安装项或兼容性。' : 'The current DSH environment is unavailable, so installed state and compatibility are unknown.',
+  })
+  if (['replace', 'upgrade'].includes(intent.kind) && !environment.dshVersion) risks.push({
+    level: 'unknown',
+    code: 'compatibility-unknown',
+    summary: zh ? '当前 DSH 版本不可见，不能确认替换或升级兼容性。' : 'The current DSH version is unavailable, so replacement or upgrade compatibility is unknown.',
   })
   if ((environment.duplicateModules?.length ?? 0) > 0 || (environment.duplicateEntryIds?.length ?? 0) > 0) risks.push({
     level: 'medium',
