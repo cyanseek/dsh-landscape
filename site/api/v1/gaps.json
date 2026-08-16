@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-08-16T07:02:11.320Z",
+  "generatedAt": "2026-08-16T13:02:59.561Z",
   "opportunities": [
     {
       "query": "Linear integration",
@@ -37,8 +37,8 @@
       "missingCapabilities": [],
       "closestProjects": [
         "labring/sealos-skills",
-        "cofy-x/axern",
-        "runzhliu/deepseek-harness-docker"
+        "xiaods/k8e",
+        "cofy-x/axern"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
