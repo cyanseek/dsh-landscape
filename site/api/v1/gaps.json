@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-08-16T13:02:59.561Z",
+  "generatedAt": "2026-08-16T18:48:54.641Z",
   "opportunities": [
     {
       "query": "Linear integration",
@@ -25,8 +25,8 @@
       ],
       "closestProjects": [
         "harcochen/dsh-vsc-integration",
-        "dsh-external/dsh-github-integration",
-        "anionex/dsh-vision-toolkit"
+        "mutalucem/dsh-plugin-integration",
+        "dsh-external/dsh-github-integration"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
@@ -51,8 +51,8 @@
       ],
       "closestProjects": [
         "harcochen/dsh-vsc-integration",
-        "dsh-external/dsh-github-integration",
-        "anionex/dsh-vision-toolkit"
+        "mutalucem/dsh-plugin-integration",
+        "dsh-external/dsh-github-integration"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     }
