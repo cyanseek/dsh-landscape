@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-08-16T01:59:02.825Z",
+  "generatedAt": "2026-08-16T07:02:11.320Z",
   "opportunities": [
     {
       "query": "Linear integration",
@@ -11,8 +11,8 @@
       ],
       "closestProjects": [
         "openma-ai/open-managed-agents",
-        "uddoo/dsh-dashboard",
-        "fakechris/dsh-track"
+        "fakechris/dsh-track",
+        "dsh-external/dsh-track"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
@@ -24,9 +24,9 @@
         "jira"
       ],
       "closestProjects": [
-        "uddoo/dsh-dashboard",
         "harcochen/dsh-vsc-integration",
-        "dsh-external/dsh-github-integration"
+        "dsh-external/dsh-github-integration",
+        "anionex/dsh-vision-toolkit"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
