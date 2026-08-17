@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-08-17T01:57:04.285Z",
+  "generatedAt": "2026-08-17T07:18:49.287Z",
   "opportunities": [
     {
       "query": "Linear integration",
@@ -24,8 +24,8 @@
         "jira"
       ],
       "closestProjects": [
-        "harcochen/dsh-vsc-integration",
         "mutalucem/dsh-plugin-integration",
+        "harcochen/dsh-vsc-integration",
         "dsh-external/dsh-github-integration"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
@@ -50,8 +50,8 @@
         "notion"
       ],
       "closestProjects": [
-        "harcochen/dsh-vsc-integration",
         "mutalucem/dsh-plugin-integration",
+        "harcochen/dsh-vsc-integration",
         "dsh-external/dsh-github-integration"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
