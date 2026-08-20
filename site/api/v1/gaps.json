@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-08-19T18:56:01.435Z",
+  "generatedAt": "2026-08-20T01:53:57.393Z",
   "opportunities": [
     {
       "query": "Linear integration",
@@ -33,7 +33,7 @@
     {
       "query": "Kubernetes operations",
       "verdict": "covered",
-      "confidence": 0.64,
+      "confidence": 0.54,
       "missingCapabilities": [],
       "closestProjects": [
         "labring/sealos-skills",
