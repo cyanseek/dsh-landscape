@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-08-21T07:10:04.192Z",
+  "generatedAt": "2026-08-21T13:13:32.560Z",
   "opportunities": [
     {
       "query": "Linear integration",
@@ -11,8 +11,8 @@
       ],
       "closestProjects": [
         "openma-ai/open-managed-agents",
-        "dsh-external/dsh-track",
-        "unlinearity/dsh-code"
+        "fakechris/dsh-track",
+        "dsh-external/dsh-track"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },

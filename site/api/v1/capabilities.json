@@ -270,27 +270,27 @@
       ]
     }
   ],
-  "generatedAt": "2026-08-21T07:10:04.192Z",
+  "generatedAt": "2026-08-21T13:13:32.560Z",
   "counts": {
     "browser": 261,
-    "github": 78,
-    "memory": 49,
+    "github": 80,
+    "memory": 52,
     "notion": 0,
-    "linear": 2,
+    "linear": 3,
     "jira": 0,
     "container": 15,
     "kubernetes": 6,
-    "database": 19,
+    "database": 20,
     "documents": 39,
     "notifications": 44,
-    "vision": 75,
-    "audio": 15,
+    "vision": 76,
+    "audio": 14,
     "multi-agent": 38,
-    "workflow": 65,
+    "workflow": 64,
     "ide": 20,
     "remote": 34,
-    "mcp": 90,
-    "research": 82,
+    "mcp": 89,
+    "research": 81,
     "observability": 41
   }
 }
