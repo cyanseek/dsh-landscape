@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-08-23T13:04:30.642Z",
+  "generatedAt": "2026-08-23T18:50:46.280Z",
   "opportunities": [
     {
       "query": "Linear integration",
@@ -18,7 +18,7 @@
     },
     {
       "query": "Jira integration",
-      "verdict": "partial",
+      "verdict": "crowded",
       "confidence": 0.54,
       "missingCapabilities": [
         "jira"
@@ -44,7 +44,7 @@
     },
     {
       "query": "Notion integration",
-      "verdict": "partial",
+      "verdict": "crowded",
       "confidence": 0.54,
       "missingCapabilities": [
         "notion"
