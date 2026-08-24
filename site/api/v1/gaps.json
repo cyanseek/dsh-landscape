@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-08-24T13:16:10.900Z",
+  "generatedAt": "2026-08-24T19:02:45.379Z",
   "opportunities": [
     {
       "query": "Linear integration",
@@ -24,9 +24,9 @@
         "jira"
       ],
       "closestProjects": [
+        "esonx/dsh-project-j4agent",
         "mutalucem/dsh-plugin-integration",
-        "harcochen/dsh-vsc-integration",
-        "dsh-external/dsh-github-integration"
+        "harcochen/dsh-vsc-integration"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
