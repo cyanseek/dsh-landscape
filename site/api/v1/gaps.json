@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-08-27T09:55:11.986Z",
+  "generatedAt": "2026-08-27T22:18:23.427Z",
   "opportunities": [
     {
       "query": "Linear integration",
-      "verdict": "crowded",
+      "verdict": "partial",
       "confidence": 0.64,
       "missingCapabilities": [
         "linear"
