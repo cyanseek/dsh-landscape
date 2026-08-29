@@ -270,9 +270,9 @@
       ]
     }
   ],
-  "generatedAt": "2026-08-29T16:45:50.339Z",
+  "generatedAt": "2026-08-29T17:26:43.554Z",
   "counts": {
-    "browser": 340,
+    "browser": 341,
     "github": 88,
     "memory": 73,
     "notion": 0,
@@ -280,7 +280,7 @@
     "jira": 1,
     "container": 20,
     "kubernetes": 7,
-    "database": 26,
+    "database": 27,
     "documents": 50,
     "notifications": 52,
     "vision": 86,
