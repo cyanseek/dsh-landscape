@@ -36,9 +36,10 @@
         <form id="analysis-form" class="analysis-form">
           <label for="need">What are you considering changing in DeepSeek Harness?</label>
           <div class="input-row">
-            <input id="need" name="need" type="search" autocomplete="off" required placeholder="Should I install browser automation, or is it already covered?">
+            <input id="need" name="need" type="search" autocomplete="off" required aria-describedby="analysis-status" placeholder="Should I install browser automation, or is it already covered?">
             <button type="submit">Run preflight <span aria-hidden="true">→</span></button>
           </div>
+          <p id="analysis-status" class="form-status" data-state="loading" role="status" aria-live="polite">Loading current snapshot…</p>
           <div class="examples" aria-label="Example needs">
             <span>Try</span>
             <button type="button" data-example="Should I install browser automation, or is it already covered?">install browser</button>

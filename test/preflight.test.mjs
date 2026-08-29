@@ -5,6 +5,7 @@ import { analyzeNeed, analyzeNeedDeterministic } from '../src/analyze.mjs'
 import { buildBrief } from '../src/brief.mjs'
 import { detectDshEnvironment } from '../src/environment.mjs'
 import { inferPreflightIntent } from '../src/intent.mjs'
+import { formatPreflightText } from '../src/preflight.mjs'
 import { loadAliases } from '../src/snapshot.mjs'
 
 const aliasData = await loadAliases()
@@ -39,6 +40,17 @@ test('one need produces additive preflight fields and preserves the legacy contr
     'coverage', 'evidence', 'intelligence', 'semanticReasoningPerformed', 'provisional',
   ]
   for (const key of legacyKeys) assert.ok(Object.hasOwn(result, key), `legacy field missing: ${key}`)
+})
+
+test('Chinese human output localizes environment and known limitations without changing JSON', () => {
+  const result = analyze('升级当前的浏览器插件')
+  const rendered = formatPreflightText(result)
+  assert.match(rendered, /不可用 — 0 个插件；0 个工具/)
+  assert.match(rendered, /当前入口无法读取 DSH 运行时清单。/)
+  assert.match(rendered, /在宿主进行语义复核前，生态结论仍为临时判断。/)
+  assert.doesNotMatch(rendered, /DSH runtime inventory is not available/)
+  assert.equal(result.environment.status, 'unavailable')
+  assert.ok(result.limitations.includes('DSH runtime inventory is not available on this surface.'))
 })
 
 test('an old brief consumer still works when all new fields are absent', () => {

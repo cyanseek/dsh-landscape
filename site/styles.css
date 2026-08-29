@@ -164,7 +164,18 @@ button {
 }
 
 button:hover { filter: brightness(1.06); }
+button:disabled { cursor: wait; filter: none; opacity: 0.65; }
 button:focus-visible, input:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+.form-status {
+  min-height: 1.2rem;
+  margin: 0.45rem 0.7rem 0.1rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.form-status[data-state="ready"] { color: var(--mint); }
+.form-status[data-state="error"] { color: var(--amber); }
 
 .examples {
   display: flex;

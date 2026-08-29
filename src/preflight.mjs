@@ -1,8 +1,34 @@
 import { unavailableEnvironment } from './environment.mjs'
 import { inferPreflightIntent } from './intent.mjs'
 
+const ZH_ENVIRONMENT_STATUS = {
+  detected: '已检测',
+  partial: '部分可见',
+  unavailable: '不可用',
+  'not-applicable': '不适用',
+}
+
+const ZH_LIMITATIONS = new Map([
+  ['DSH runtime inventory is not available on this surface.', '当前入口无法读取 DSH 运行时清单。'],
+  ['A browser snapshot has no active DSH runtime to inspect.', '浏览器快照没有可供检查的活动 DSH 运行时。'],
+  ['The DSH loader inventory could not be read; ecosystem analysis continued.', '无法读取 DSH Loader 清单；生态分析已继续完成。'],
+  ['The DSH loader inventory is not exposed to this plugin context.', '当前插件上下文未公开 DSH Loader 清单。'],
+  ['The active tool inventory could not be read; ecosystem analysis continued.', '无法读取活动工具清单；生态分析已继续完成。'],
+  ['The active tool inventory is not exposed on this surface.', '当前入口未公开活动工具清单。'],
+  ['The active profile name is not exposed by the current public runtime API.', '当前公开运行时 API 未提供活动 Profile 名称。'],
+  ['DSH version, bundle provenance, and peer compatibility are not exposed by the current public runtime API.', '当前公开运行时 API 未提供 DSH 版本、Bundle 来源和 peer 兼容性。'],
+  ['DSH runtime inspection failed; ecosystem analysis continued without it.', 'DSH 运行时检查失败；生态分析已在无环境信息的情况下继续完成。'],
+  ['Discovery coverage is incomplete.', '发现范围不完整。'],
+  ['The ecosystem snapshot is stale.', '生态快照已过期。'],
+  ['The ecosystem verdict is provisional until host semantic review.', '在宿主进行语义复核前，生态结论仍为临时判断。'],
+])
+
 function isChinese(value) {
   return /[\u3400-\u9fff]/u.test(String(value ?? ''))
+}
+
+function localizeLimitation(value, zh) {
+  return zh ? ZH_LIMITATIONS.get(value) ?? value : value
 }
 
 function environmentRelevant(kind) {
@@ -175,7 +201,10 @@ export function formatPreflightText(analysis) {
     verdict: 'Evidence verdict', noMatches: 'No related implementation was established in current evidence.', noRisks: 'No evidence-backed risk was established.', none: 'None.',
   }
   const matches = analysis.matches.slice(0, 5).map((match) => `${match.repository} — ${match.maturity}`)
-  const environmentLine = `${analysis.environment.status.toUpperCase()} — ${analysis.environment.plugins.length} plugins; ${analysis.environment.availableTools.length} tools`
+  const environmentLine = zh
+    ? `${ZH_ENVIRONMENT_STATUS[analysis.environment.status] ?? analysis.environment.status} — ${analysis.environment.plugins.length} 个插件；${analysis.environment.availableTools.length} 个工具`
+    : `${analysis.environment.status.toUpperCase()} — ${analysis.environment.plugins.length} plugins; ${analysis.environment.availableTools.length} tools`
+  const limitations = analysis.limitations.map((value) => localizeLimitation(value, zh))
   return [
     labels.title,
     '', labels.need, analysis.query,
@@ -186,6 +215,6 @@ export function formatPreflightText(analysis) {
     '', labels.doNotBuild, ...listLines(analysis.doNotBuild, labels.none),
     '', labels.buildOnly, ...listLines(analysis.buildOnly, labels.none),
     '', labels.next, analysis.nextAction,
-    '', labels.limitations, ...listLines(analysis.limitations, labels.none),
+    '', labels.limitations, ...listLines(limitations, labels.none),
   ].join('\n') + '\n'
 }

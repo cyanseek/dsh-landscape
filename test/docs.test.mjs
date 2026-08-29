@@ -3,11 +3,12 @@ import { readFile } from 'node:fs/promises'
 import test from 'node:test'
 
 const root = new URL('..', import.meta.url)
-const [english, chinese, ignore, site] = await Promise.all([
+const [english, chinese, ignore, site, siteMarkup] = await Promise.all([
   readFile(new URL('README.md', root), 'utf8'),
   readFile(new URL('README.zh-CN.md', root), 'utf8'),
   readFile(new URL('.gitignore', root), 'utf8'),
   readFile(new URL('site/app.js', root), 'utf8'),
+  readFile(new URL('site/index.html', root), 'utf8'),
 ])
 const requiredCommands = [
   'dsh plugin --profile web add github:cyanseek/dsh-landscape#2d3570aadbbd291dbfc58e2484e287bd14fa92e0',
@@ -71,4 +72,12 @@ test('site rendering does not inject external metadata as HTML', () => {
   for (const selector of ['#decision', '#environment', '#risks', '#do-not-build', '#build-only', '#next-action']) {
     assert.ok(site.includes(selector), `site renderer missing ${selector}`)
   }
+})
+
+test('site reports snapshot loading and failure instead of silently dropping a preflight', () => {
+  assert.match(siteMarkup, /id="analysis-status"[^>]+role="status"[^>]+aria-live="polite"/)
+  assert.match(siteMarkup, /aria-describedby="analysis-status"/)
+  assert.match(site, /if \(!response\.ok\)/)
+  assert.match(site, /No result was inferred/)
+  assert.match(site, /if \(!await loadSnapshotData\(\)\)/)
 })

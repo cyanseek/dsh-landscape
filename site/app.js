@@ -3,13 +3,51 @@ import { analyzeStaticNeed } from './core/site-analysis.mjs'
 const form = document.querySelector('#analysis-form')
 const input = document.querySelector('#need')
 const resultSection = document.querySelector('#result')
+const submitButton = form.querySelector('button[type="submit"]')
+const analysisStatus = document.querySelector('#analysis-status')
 let loadedSnapshot = null
 let loadedAliases = null
-const snapshotPromise = Promise.all([
-  fetch('./api/v1/snapshot.json').then((response) => response.json()),
-  fetch('./api/v1/capabilities.json').then((response) => response.json()),
-  fetch('./api/v1/gaps.json').then((response) => response.json()),
-])
+let loadPromise = null
+
+async function fetchJson(path) {
+  const response = await fetch(path)
+  if (!response.ok) throw new Error(`Snapshot request failed with HTTP ${response.status}`)
+  return response.json()
+}
+
+function setAnalysisStatus(message, state) {
+  analysisStatus.textContent = message
+  analysisStatus.dataset.state = state
+}
+
+function loadSnapshotData() {
+  if (loadedSnapshot && loadedAliases) return Promise.resolve(true)
+  if (loadPromise) return loadPromise
+  form.setAttribute('aria-busy', 'true')
+  setAnalysisStatus('Loading current snapshot…', 'loading')
+  loadPromise = Promise.all([
+    fetchJson('./api/v1/snapshot.json'),
+    fetchJson('./api/v1/capabilities.json'),
+    fetchJson('./api/v1/gaps.json'),
+  ])
+    .then(([snapshot, aliases, gaps]) => {
+      loadedSnapshot = snapshot
+      loadedAliases = aliases
+      renderDashboard(snapshot, gaps)
+      setAnalysisStatus(`Ready · ${snapshot.plugins.length.toLocaleString()} projects indexed.`, 'ready')
+      return true
+    })
+    .catch(() => {
+      document.querySelector('#freshness').textContent = 'unavailable'
+      setAnalysisStatus('Snapshot unavailable. Check your connection, then run preflight again. No result was inferred.', 'error')
+      return false
+    })
+    .finally(() => {
+      form.removeAttribute('aria-busy')
+      loadPromise = null
+    })
+  return loadPromise
+}
 
 function appendTextList(target, values, fallback) {
   target.replaceChildren()
@@ -106,25 +144,30 @@ function renderDashboard(snapshot, gaps) {
     })
 }
 
-snapshotPromise
-  .then(([snapshot, aliases, gaps]) => {
-    loadedSnapshot = snapshot
-    loadedAliases = aliases
-    renderDashboard(snapshot, gaps)
-  })
-  .catch(() => {
-    document.querySelector('#freshness').textContent = 'unavailable'
-  })
+loadSnapshotData()
 
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', async (event) => {
   event.preventDefault()
   const query = input.value.trim()
-  if (!query || !loadedSnapshot || !loadedAliases) return
-  renderAnalysis(analyzeStaticNeed(query, {
-    snapshot: loadedSnapshot,
-    aliasData: loadedAliases,
-    limit: 4,
-  }))
+  if (!query) return
+  submitButton.disabled = true
+  setAnalysisStatus('Checking current snapshot…', 'loading')
+  try {
+    if (!await loadSnapshotData()) {
+      input.focus()
+      return
+    }
+    renderAnalysis(analyzeStaticNeed(query, {
+      snapshot: loadedSnapshot,
+      aliasData: loadedAliases,
+      limit: 4,
+    }))
+    setAnalysisStatus('Preflight complete. The result is read-only and provisional.', 'ready')
+  } catch {
+    setAnalysisStatus('Preflight could not be completed. No result was inferred; try again.', 'error')
+  } finally {
+    submitButton.disabled = false
+  }
 })
 
 document.querySelectorAll('[data-example]').forEach((button) => {
