@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-08-30T16:44:16.550Z",
+  "generatedAt": "2026-08-30T21:10:51.310Z",
   "opportunities": [
     {
       "query": "Linear integration",
@@ -32,13 +32,13 @@
     },
     {
       "query": "Kubernetes operations",
-      "verdict": "covered",
-      "confidence": 0.54,
+      "verdict": "crowded",
+      "confidence": 0.64,
       "missingCapabilities": [],
       "closestProjects": [
+        "sandbaseai/sandbase-harness",
         "labring/sealos-skills",
-        "xiaods/k8e",
-        "cofy-x/axern"
+        "xiaods/k8e"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
