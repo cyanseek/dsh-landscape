@@ -270,7 +270,7 @@
       ]
     }
   ],
-  "generatedAt": "2026-09-01T16:43:05.462Z",
+  "generatedAt": "2026-09-01T21:05:42.193Z",
   "counts": {
     "browser": 341,
     "github": 93,
@@ -289,7 +289,7 @@
     "workflow": 83,
     "ide": 27,
     "remote": 39,
-    "mcp": 108,
+    "mcp": 109,
     "research": 131,
     "observability": 60
   }
