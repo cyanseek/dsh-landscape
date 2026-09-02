@@ -270,10 +270,10 @@
       ]
     }
   ],
-  "generatedAt": "2026-09-02T04:41:09.018Z",
+  "generatedAt": "2026-09-02T11:24:52.535Z",
   "counts": {
-    "browser": 344,
-    "github": 94,
+    "browser": 342,
+    "github": 91,
     "memory": 73,
     "notion": 0,
     "linear": 2,
@@ -283,14 +283,14 @@
     "database": 29,
     "documents": 51,
     "notifications": 52,
-    "vision": 88,
+    "vision": 89,
     "audio": 21,
     "multi-agent": 50,
     "workflow": 83,
-    "ide": 27,
+    "ide": 28,
     "remote": 39,
     "mcp": 108,
-    "research": 131,
-    "observability": 59
+    "research": 132,
+    "observability": 60
   }
 }
