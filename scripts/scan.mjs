@@ -346,8 +346,7 @@ async function main() {
   })
 
   if (existing && JSON.stringify(stripVolatile(existing)) === JSON.stringify(stripVolatile(snapshot))) {
-    process.stdout.write(`Snapshot unchanged (${plugins.length} plugins); existing generatedAt preserved.\n`)
-    return
+    process.stdout.write(`Catalog unchanged (${plugins.length} plugins); recording the successful observation time.\n`)
   }
   await writeAtomic(options.output, snapshot)
   process.stdout.write(`Wrote ${plugins.length} plugins from ${sources.length} sources to ${options.output}.\n`)

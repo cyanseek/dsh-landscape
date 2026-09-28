@@ -1,6 +1,6 @@
 {
   "name": "dsh-landscape",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Run a read-only capability preflight before changing or building for DeepSeek Harness.",
   "type": "module",
   "bin": {
@@ -57,5 +57,11 @@
     }
   },
   "license": "MIT",
-  "author": "cyanseek"
+  "author": "cyanseek",
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.4",
+    "@deepseek-ai/dsh-llm": "0.1.7-rc.2",
+    "@deepseek-ai/dsh-system-prompt": "0.1.7-rc.2",
+    "@deepseek-ai/dsh-tools": "0.1.7-rc.2"
+  }
 }

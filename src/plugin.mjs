@@ -140,7 +140,7 @@ export function createLandscapeTool(options = {}) {
       exec.signal?.throwIfAborted()
       let environment
       try {
-        environment = await detectEnvironmentFn()
+        environment = await detectEnvironmentFn(exec.agent)
       } catch {
         environment = unavailableEnvironment('DSH runtime inspection failed; ecosystem analysis continued without it.')
       }
@@ -162,5 +162,5 @@ export function createLandscapeTool(options = {}) {
 }
 
 export function apply(ctx) {
-  ctx.tools.register(createLandscapeTool({ detectEnvironment: () => detectDshEnvironment(ctx) }))
+  ctx.tools.register(createLandscapeTool({ detectEnvironment: (agent) => detectDshEnvironment(ctx, agent) }))
 }

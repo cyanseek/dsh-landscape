@@ -80,7 +80,7 @@ function readService(ctx, name) {
   }
 }
 
-export async function detectDshEnvironment(ctx) {
+export async function detectDshEnvironment(ctx, agent) {
   const base = unavailableEnvironment()
   const limitations = []
   let loaderReadable = false
@@ -105,7 +105,7 @@ export async function detectDshEnvironment(ctx) {
   const tools = readService(ctx, 'tools')
   if (typeof tools?.schemas === 'function') {
     try {
-      availableTools = tools.schemas()
+      availableTools = tools.schemas(agent)
         .map((schema) => safeIdentifier(schema?.name, '[private-tool]'))
         .filter(Boolean)
         .sort()

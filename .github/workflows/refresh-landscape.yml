@@ -15,6 +15,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -28,7 +29,7 @@ jobs:
         run: npm run scan
       - run: npm run validate
       - run: npm run build
-      - name: Commit semantic data changes only
+      - name: Commit verified data and observation time
         run: |
           git add data/snapshot.json site/api/v1/snapshot.json site/api/v1/plugins.json site/api/v1/capabilities.json site/api/v1/gaps.json
           if git diff --cached --quiet; then

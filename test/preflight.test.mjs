@@ -141,3 +141,14 @@ test('decision actions preserve conservative build and runtime boundaries', () =
   assert.equal(upgrade.decision, 'INVESTIGATE')
   assert.ok(upgrade.risks.some((risk) => risk.code === 'compatibility-unknown'))
 })
+
+test('tool inventory is scoped to the calling Agent', async () => {
+  const agent = { id: 'fixture-agent' }
+  const environment = await detectDshEnvironment({
+    tools: { schemas(scope) {
+      assert.equal(scope, agent)
+      return [{ name: 'allowed_for_agent' }]
+    } },
+  }, agent)
+  assert.deepEqual(environment.availableTools, ['allowed_for_agent'])
+})

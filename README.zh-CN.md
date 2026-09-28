@@ -1,5 +1,7 @@
 # DSH Landscape
 
+> 开发版本 `0.3.1`（GitHub 源码版，未发布 npm 包）：2026-09-28 在 Windows Node.js 24.11.1、DSH `0.1.7-rc.2` 上完成本地验证。工具发现遵守当前 Agent 作用域；成功扫描即使目录无变化也更新观测时间。 本轮未重跑真实模型端到端及原生 macOS 验证。
+
 [English](README.md) · [网站](https://cyanseek.github.io/dsh-landscape/) · [路线图](ROADMAP.md) · [参与贡献](CONTRIBUTING.md)
 
 [![CI](https://github.com/cyanseek/dsh-landscape/actions/workflows/ci.yml/badge.svg)](https://github.com/cyanseek/dsh-landscape/actions/workflows/ci.yml)
@@ -21,10 +23,10 @@ DSH Landscape 是一个只读的能力变更前置检查：用一句自然语言
 
 ## 快速开始
 
-把固定 revision、可复现的 DSH bundle 安装到已有 Profile：
+把当前 GitHub DSH bundle 安装到已有 Profile。需要可复现部署时，将 `main` 替换为审阅过的 commit SHA：
 
 ```bash
-dsh plugin --profile web add github:cyanseek/dsh-landscape#2d3570aadbbd291dbfc58e2484e287bd14fa92e0
+dsh plugin --profile web add github:cyanseek/dsh-landscape#main
 ```
 
 然后像平常一样直接问 DSH：

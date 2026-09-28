@@ -11,7 +11,7 @@ const [english, chinese, ignore, site, siteMarkup] = await Promise.all([
   readFile(new URL('site/index.html', root), 'utf8'),
 ])
 const requiredCommands = [
-  'dsh plugin --profile web add github:cyanseek/dsh-landscape#2d3570aadbbd291dbfc58e2484e287bd14fa92e0',
+  'dsh plugin --profile web add github:cyanseek/dsh-landscape#main',
   'dsh --profile web --dump-config',
   'dsh plugin --profile web remove dsh-landscape',
   'npx -y skills use cyanseek/dsh-landscape --skill dsh-landscape --agent codex',

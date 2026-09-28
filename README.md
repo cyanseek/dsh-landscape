@@ -1,5 +1,7 @@
 # DSH Landscape
 
+> Development version `0.3.1` (GitHub source; no npm release): tested locally on Windows Node.js 24.11.1 with DSH `0.1.7-rc.2` (2026-09-28). Agent-scoped tool discovery and fresh observation timestamps after successful unchanged scans. Model-backed end-to-end and native macOS runs have not been repeated.
+
 [简体中文](README.zh-CN.md) · [Website](https://cyanseek.github.io/dsh-landscape/) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md)
 
 [![CI](https://github.com/cyanseek/dsh-landscape/actions/workflows/ci.yml/badge.svg)](https://github.com/cyanseek/dsh-landscape/actions/workflows/ci.yml)
@@ -21,10 +23,10 @@ No Landscape account. No API key. No initialization. No required configuration. 
 
 ## Quick start
 
-Install the pinned, reproducible DSH bundle into an existing profile:
+Install the current GitHub DSH bundle into an existing profile. For reproducible deployments, replace `main` with a reviewed commit SHA:
 
 ```bash
-dsh plugin --profile web add github:cyanseek/dsh-landscape#2d3570aadbbd291dbfc58e2484e287bd14fa92e0
+dsh plugin --profile web add github:cyanseek/dsh-landscape#main
 ```
 
 Then ask DSH normally:
