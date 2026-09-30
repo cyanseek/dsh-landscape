@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-09-30T05:30:34.344Z",
+  "generatedAt": "2026-09-30T12:31:57.954Z",
   "opportunities": [
     {
       "query": "Linear integration",
@@ -32,7 +32,7 @@
     },
     {
       "query": "Kubernetes operations",
-      "verdict": "covered",
+      "verdict": "crowded",
       "confidence": 0.64,
       "missingCapabilities": [],
       "closestProjects": [
