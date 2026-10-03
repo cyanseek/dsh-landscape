@@ -270,7 +270,7 @@
       ]
     }
   ],
-  "generatedAt": "2026-10-03T11:37:20.625Z",
+  "generatedAt": "2026-10-03T16:16:05.152Z",
   "counts": {
     "browser": 374,
     "github": 105,
@@ -285,12 +285,12 @@
     "notifications": 52,
     "vision": 91,
     "audio": 24,
-    "multi-agent": 61,
+    "multi-agent": 60,
     "workflow": 95,
     "ide": 29,
-    "remote": 48,
+    "remote": 49,
     "mcp": 135,
-    "research": 145,
+    "research": 146,
     "observability": 67
   }
 }
