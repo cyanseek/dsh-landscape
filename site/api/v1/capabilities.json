@@ -270,7 +270,7 @@
       ]
     }
   ],
-  "generatedAt": "2026-10-18T15:50:39.166Z",
+  "generatedAt": "2026-10-18T20:40:07.616Z",
   "counts": {
     "browser": 385,
     "github": 116,
@@ -280,7 +280,7 @@
     "jira": 1,
     "container": 22,
     "kubernetes": 10,
-    "database": 30,
+    "database": 31,
     "documents": 54,
     "notifications": 57,
     "vision": 92,
