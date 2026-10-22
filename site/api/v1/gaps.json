@@ -1,25 +1,25 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-10-22T11:48:45.362Z",
+  "generatedAt": "2026-10-22T17:08:25.754Z",
   "opportunities": [
     {
       "query": "Linear integration",
-      "verdict": "crowded",
-      "confidence": 0.54,
+      "verdict": "partial",
+      "confidence": 0.8,
       "missingCapabilities": [
         "linear"
       ],
       "closestProjects": [
         "dsh-external/dsh-track",
-        "unlinearity/dsh-code",
-        "dsh-external/dsh-github-integration"
+        "dsh-external/dsh-github-integration",
+        "harcochen/dsh-vsc-integration"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
     {
       "query": "Jira integration",
-      "verdict": "crowded",
-      "confidence": 0.54,
+      "verdict": "partial",
+      "confidence": 0.8,
       "missingCapabilities": [
         "jira"
       ],
@@ -32,20 +32,22 @@
     },
     {
       "query": "Kubernetes operations",
-      "verdict": "crowded",
-      "confidence": 0.64,
-      "missingCapabilities": [],
+      "verdict": "partial",
+      "confidence": 0.8,
+      "missingCapabilities": [
+        "kubernetes"
+      ],
       "closestProjects": [
-        "sandbaseai/sandbase-harness",
-        "labring/sealos-skills",
-        "xiaods/k8e"
+        "runzhliu/deepseek-harness-docker",
+        "seed-forge/harness-ai-kit",
+        "a805026135/dsh-constellation"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
     {
       "query": "Notion integration",
-      "verdict": "crowded",
-      "confidence": 0.54,
+      "verdict": "partial",
+      "confidence": 0.8,
       "missingCapabilities": [
         "notion"
       ],
