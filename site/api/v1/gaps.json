@@ -1,59 +1,57 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-10-22T17:08:25.754Z",
+  "generatedAt": "2026-10-22T21:33:48.957Z",
   "opportunities": [
     {
       "query": "Linear integration",
-      "verdict": "partial",
-      "confidence": 0.8,
+      "verdict": "crowded",
+      "confidence": 0.54,
       "missingCapabilities": [
         "linear"
       ],
       "closestProjects": [
         "dsh-external/dsh-track",
-        "dsh-external/dsh-github-integration",
+        "unlinearity/dsh-code",
         "harcochen/dsh-vsc-integration"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
     {
       "query": "Jira integration",
-      "verdict": "partial",
-      "confidence": 0.8,
+      "verdict": "crowded",
+      "confidence": 0.54,
       "missingCapabilities": [
         "jira"
       ],
       "closestProjects": [
         "esonx/dsh-project-j4agent",
-        "dsh-external/dsh-github-integration",
-        "harcochen/dsh-vsc-integration"
+        "harcochen/dsh-vsc-integration",
+        "dsh-external/dsh-github-integration"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
     {
       "query": "Kubernetes operations",
-      "verdict": "partial",
-      "confidence": 0.8,
-      "missingCapabilities": [
-        "kubernetes"
-      ],
+      "verdict": "crowded",
+      "confidence": 0.64,
+      "missingCapabilities": [],
       "closestProjects": [
-        "runzhliu/deepseek-harness-docker",
-        "seed-forge/harness-ai-kit",
-        "a805026135/dsh-constellation"
+        "sandbaseai/sandbase-harness",
+        "labring/sealos-skills",
+        "xiaods/k8e"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
     {
       "query": "Notion integration",
-      "verdict": "partial",
-      "confidence": 0.8,
+      "verdict": "crowded",
+      "confidence": 0.54,
       "missingCapabilities": [
         "notion"
       ],
       "closestProjects": [
-        "dsh-external/dsh-github-integration",
         "harcochen/dsh-vsc-integration",
+        "dsh-external/dsh-github-integration",
         "mutalucem/dsh-plugin-integration"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
