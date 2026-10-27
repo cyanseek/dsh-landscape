@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-10-27T12:08:16.929Z",
+  "generatedAt": "2026-10-27T17:59:07.171Z",
   "opportunities": [
     {
       "query": "Linear integration",
@@ -37,8 +37,8 @@
       "missingCapabilities": [],
       "closestProjects": [
         "sandbaseai/sandbase-harness",
-        "runzhliu/deepseek-harness-docker",
-        "cofy-x/axern"
+        "labring/sealos-skills",
+        "xiaods/k8e"
       ],
       "label": "snapshot-derived lead; not a universal gap claim"
     },
