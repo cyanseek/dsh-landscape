@@ -270,11 +270,11 @@
       ]
     }
   ],
-  "generatedAt": "2026-11-08T05:57:47.357Z",
+  "generatedAt": "2026-11-08T13:20:46.664Z",
   "counts": {
     "browser": 397,
     "github": 119,
-    "memory": 100,
+    "memory": 101,
     "notion": 0,
     "linear": 1,
     "jira": 1,
@@ -283,8 +283,8 @@
     "database": 31,
     "documents": 56,
     "notifications": 56,
-    "vision": 104,
-    "audio": 37,
+    "vision": 105,
+    "audio": 38,
     "multi-agent": 66,
     "workflow": 105,
     "ide": 34,
